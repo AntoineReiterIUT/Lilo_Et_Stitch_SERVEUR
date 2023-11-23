@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.OAuth;
+using System.Xml.Linq;
 
 namespace API.Data.DAO_Patterns
 {
@@ -8,12 +9,15 @@ namespace API.Data.DAO_Patterns
     public class DAO_Patterns : IDAO_Patterns
     {
 
+        #region
+        //The directory in which the patterns are saved
+        private string patternsDirectory = "Patterns";
+        #endregion
+
         #region opetations
         public bool CheckIfPatternExist(string name)
-        {
-            //The directory in which the patterns are saved
-            string patternsDirectory = "Patterns";
-
+        {          
+            //Bool to return if it succeeded or not
             bool success;
             try
             {
@@ -34,9 +38,7 @@ namespace API.Data.DAO_Patterns
 
         public bool CreatePattern(string name)
         {
-            //The directory in which the patterns are saved
-            string patternsDirectory = "Patterns";
-
+            //Bool to return if it succeeded or not
             bool success;
             try
             {
@@ -49,6 +51,38 @@ namespace API.Data.DAO_Patterns
             }
             catch
             { // incase there's a problem, we mark it as false
+                success = false;
+            }
+
+            //returning the result
+            return success;
+        }
+
+
+        /// <summary>
+        /// Adds the pdf to the directory
+        /// </summary>
+        /// <param name="PDF">PDF, as an array of bytes</param>
+        /// <param name="dirName">Name of the dir in which the pdf should be rebuilt</param>
+        /// <returns>Result of the rebuild</returns>
+        /// <author>Antoine REITER</author>
+        public bool AddPDF(byte[] PDF,string dirName)
+        {
+            //Bool to return if it succeeded or not
+            bool success;
+            try
+            {
+                if (PDF != null)
+                {
+                    // Building the path & rebuilding the PDF, ex : /Paterns/NameOfThePattern/NameOfThePattern_PDF.pdf
+                    File.WriteAllBytesAsync(Path.Combine(Path.Combine(patternsDirectory, dirName), string.Format($"{dirName}_PDF.pdf")), PDF);
+                    success = true;
+                }
+                else
+                    success = false;
+            }
+            catch 
+            { 
                 success = false;
             }
 

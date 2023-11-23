@@ -27,6 +27,6 @@
 
 
 
-
+        public bool AddPDF(byte[] PDF, string dirName);
     }
 }

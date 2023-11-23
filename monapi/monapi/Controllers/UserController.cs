@@ -36,9 +36,7 @@ namespace monapi.Controllers
             if(name != null && step != null && maxColors != null && gridColor != null)
             {
                 //Creating the directory
-                Console.WriteLine(dAO_Patterns.CheckIfPatternExist(name));
                 dAO_Patterns.CreatePattern(name);
-                Console.WriteLine(dAO_Patterns.CheckIfPatternExist(name));
                 result = Ok("Success!");
             }
             return result;
