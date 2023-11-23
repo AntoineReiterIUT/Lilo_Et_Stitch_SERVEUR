@@ -50,7 +50,7 @@ namespace monapi.Controllers
                 FakeDAO.Instance.AddStep(color.Value);
 
             }
-            return result; ;
+            return result;
         }
 
         [HttpPost("AddPDF")]
@@ -79,11 +79,6 @@ namespace monapi.Controllers
         }
 
 
-        /// <summary>
-        /// Ajoute un utilisateur
-        /// </summary>
-        /// <param name="user">L'utilisateur à ajouter</param>
-        /// <returns></returns>
 
     }
 }
