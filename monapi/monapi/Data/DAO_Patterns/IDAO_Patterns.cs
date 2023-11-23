@@ -25,8 +25,33 @@
         public bool CreatePattern(string name);
 
 
-
-
+        /// <summary>
+        /// Adds the pdf to the directory
+        /// </summary>
+        /// <param name="PDF">PDF, as an array of bytes</param>
+        /// <param name="dirName">Name of the dir in which the pdf should be rebuilt</param>
+        /// <returns>Result of the rebuild</returns>
+        /// <author>Antoine REITER</author>
         public bool AddPDF(byte[] PDF, string dirName);
+
+
+        /// <summary>
+        /// Adds the palette to the directory
+        /// </summary>
+        /// <param name="CSV">CSV, as an array of bytes</param>
+        /// <param name="dirName">Name of the dir in which the csv should be rebuilt</param>
+        /// <returns>Result of the rebuild</returns>
+        /// <author>Antoine REITER</author>
+        public bool AddCSV(byte[] PDF, string dirName);
+
+
+        /// <summary>
+        /// Adds the image to the directory
+        /// </summary>
+        /// <param name="IMG">The image, as an array of bytes</param>
+        /// <param name="dirName">Name of the dir in which the image should be rebuilt</param>
+        /// <returns>Result of the rebuild</returns>
+        /// <author>Antoine REITER</author>
+        public bool AddIMG(byte[] IMG, string dirName);
     }
 }

@@ -59,13 +59,6 @@ namespace API.Data.DAO_Patterns
         }
 
 
-        /// <summary>
-        /// Adds the pdf to the directory
-        /// </summary>
-        /// <param name="PDF">PDF, as an array of bytes</param>
-        /// <param name="dirName">Name of the dir in which the pdf should be rebuilt</param>
-        /// <returns>Result of the rebuild</returns>
-        /// <author>Antoine REITER</author>
         public bool AddPDF(byte[] PDF,string dirName)
         {
             //Bool to return if it succeeded or not
@@ -90,6 +83,55 @@ namespace API.Data.DAO_Patterns
             return success;
         }
 
+
+        public bool AddCSV(byte[] CSV, string dirName)
+        {
+            //Bool to return if it succeeded or not
+            bool success;
+            try
+            {
+                if (CSV != null)
+                {
+                    // Building the path & rebuilding the CSV, ex : /Paterns/NameOfThePattern/NameOfThePattern_CSV.csv
+                    File.WriteAllBytesAsync(Path.Combine(Path.Combine(patternsDirectory, dirName), string.Format($"{dirName}_CSV.csv")), CSV);
+                    success = true;
+                }
+                else
+                    success = false;
+            }
+            catch
+            {
+                success = false;
+            }
+
+            //returning the result
+            return success;
+        }
+
+
+        public bool AddIMG(byte[] IMG, string dirName)
+        {
+            //Bool to return if it succeeded or not
+            bool success;
+            try
+            {
+                if (IMG != null)
+                {
+                    // Building the path & rebuilding the CSV, ex : /Paterns/NameOfThePattern/NameOfThePattern_IMG.png
+                    File.WriteAllBytesAsync(Path.Combine(Path.Combine(patternsDirectory, dirName), string.Format($"{dirName}_IMG.png")), IMG);
+                    success = true;
+                }
+                else
+                    success = false;
+            }
+            catch
+            {
+                success = false;
+            }
+
+            //returning the result
+            return success;
+        }
         #endregion
     }
 }
