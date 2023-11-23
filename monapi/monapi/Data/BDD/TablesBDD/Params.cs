@@ -18,6 +18,7 @@ namespace monapi.Data.BDD
     [Table("PARAMS")]
     public class Params
     {
+        #region Properties
         /// <summary>
         /// Primary key for PARAMS table
         /// </summary>
@@ -54,6 +55,35 @@ namespace monapi.Data.BDD
         [Column("PALETTEDMC")]
         public string PALETTEDMC { get; set; }
 
+        #endregion
+        #region Methods
+        /// <summary>
+        /// Inserts data into the Params table
+        /// </summary>
+        /// <param name="step">Step of the image</param>
+        /// <param name="nbColor">Number of colors used</param>
+        /// <param name="gridColor">Color of the grid</param>
+        /// <param name="csv">Palette DMC</param>
+        /// <returns>Success or failure message</returns>
+        public string InsertInParams(int step, int nbColor, string gridColor, string csv)
+        {
+            string function = "The data was not inserted";
+            using (var context = new MyContext())
+            {
+                FormattableString sql = $"INSERT INTO Params (step, nb_colors, grid_color, paletteDMC) VALUES ({step},{nbColor},{gridColor},{csv})";
+                try
+                {
+                    context.Database.ExecuteSqlInterpolated(sql);
+                    function = "Success";
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(function);
+                }
+                return function;
+            }
+        }
+        #endregion
 
     }
 }
