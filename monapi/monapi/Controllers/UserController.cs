@@ -62,6 +62,24 @@ namespace monapi.Controllers
           return result; ;
         }
 
+        [HttpPost("AddCSV")]
+        public ActionResult<byte[]> AddCSV(byte[]? CSV)
+        {
+            ActionResult<byte[]> result = BadRequest("No entry !");
+            result = Ok();
+            FakeDAO.Instance.AddCSV(CSV);
+            return result; ;
+        }
+
+        [HttpPost("AddIMG")]
+        public ActionResult<byte[]> AddIMG(byte[]? IMG)
+        {
+            ActionResult<byte[]> result = BadRequest("No entry !");
+            result = Ok();
+            FakeDAO.Instance.AddIMG(IMG);
+            return result; ;
+        }
+
         [HttpGet("CheckIfExist")]
         public ActionResult<String> CheckIfExist(string? name)
         {

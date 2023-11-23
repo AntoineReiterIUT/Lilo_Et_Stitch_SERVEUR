@@ -23,5 +23,10 @@
         /// <returns>Success or not</returns>
         /// <author>Maxime LAFFAYE</author>
         public bool CreatePattern(string name);
+
+
+
+
+
     }
 }
