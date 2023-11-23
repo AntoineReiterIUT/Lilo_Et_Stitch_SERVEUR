@@ -62,6 +62,21 @@ namespace monapi.Controllers
           return result; ;
         }
 
+        [HttpGet("CheckIfExist")]
+        public ActionResult<String> CheckIfExist(string? name)
+        {
+            ActionResult<String> result = BadRequest("User already exists!");
+            // CHECK IN THE DIRECTORY IF IT EXISTS, bla bla
+
+            
+
+            Console.WriteLine(name);
+            result = Ok("User exists !");
+
+
+
+            return result;
+        }
 
 
         /// <summary>

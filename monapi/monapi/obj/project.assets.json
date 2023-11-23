@@ -230,11 +230,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ar728071\\Desktop\\monapi\\monapi\\monapi.csproj",
+      "projectUniqueName": "C:\\Users\\ar728071\\Source\\Repos\\dept-info-iut-dijon\\Lilo_Et_Stitch_SERVEUR\\monapi\\monapi\\monapi.csproj",
       "projectName": "monapi",
-      "projectPath": "C:\\Users\\ar728071\\Desktop\\monapi\\monapi\\monapi.csproj",
+      "projectPath": "C:\\Users\\ar728071\\Source\\Repos\\dept-info-iut-dijon\\Lilo_Et_Stitch_SERVEUR\\monapi\\monapi\\monapi.csproj",
       "packagesPath": "C:\\Users\\ar728071\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ar728071\\Desktop\\monapi\\monapi\\obj\\",
+      "outputPath": "C:\\Users\\ar728071\\Source\\Repos\\dept-info-iut-dijon\\Lilo_Et_Stitch_SERVEUR\\monapi\\monapi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
