@@ -16,45 +16,18 @@ namespace monapi.Controllers
 
         #region _________ operations _________
         public UserController() { }
-
-        [HttpGet("AddStep")]
-        public ActionResult<int> AddStep(int? id)
+        [HttpGet("sendParameters")]
+        public ActionResult sendParameters(int? id, int? NB, int? color,string? name)
         {
-            ActionResult<int> result = BadRequest("No entry !");
+            ActionResult result = BadRequest("No entry !");
 
             if (id.HasValue)
             {
                 result = Ok();
                 FakeDAO.Instance.AddStep(id.Value);
-                
-            }
-                return result;
-        }
-
-        [HttpGet("Addnb_color")]
-            public ActionResult<int> Addnb_color(int? NB)
-        {
-            ActionResult<int> result = BadRequest("No entry !");
-
-            if (NB.HasValue)
-            {
-                result = Ok();
-                FakeDAO.Instance.AddStep(NB.Value);
-
-            }
-            return result; ;
-        }
-
-
-        [HttpGet("Addgrid_color")]
-        public ActionResult<int> Addgrid_color(int? color)
-        {
-            ActionResult<int> result = BadRequest("No entry !");
-
-            if (color.HasValue)
-            {
-                result = Ok();
-                FakeDAO.Instance.AddStep(color.Value);
+                FakeDAO.Instance.Addnb_color(NB.Value);
+                FakeDAO.Instance.AddGrid_color(color.Value);
+                FakeDAO.Instance.AddName(name);
 
             }
             return result;

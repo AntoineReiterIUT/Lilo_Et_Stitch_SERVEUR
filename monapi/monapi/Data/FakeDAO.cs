@@ -91,5 +91,16 @@ namespace monapi.Data
             return res;
         }
 
+        public bool AddName(string Name)
+        {
+            bool res = false;
+            if (Name != null)
+            {
+                bDD.Name = Name;
+                res = true;
+            }
+            return res;
+        }
+
     }
 }

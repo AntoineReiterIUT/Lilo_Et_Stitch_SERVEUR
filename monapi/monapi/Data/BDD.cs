@@ -5,6 +5,7 @@
         private int step;
         private int NB;
         private int color;
+        private string name;
 
         public int Step
         {
@@ -23,6 +24,13 @@
             get { return NB; }
             set { NB = value; }
         }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
         public BDD() { }
 
     }
