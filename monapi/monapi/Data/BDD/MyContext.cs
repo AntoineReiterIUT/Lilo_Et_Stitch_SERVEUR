@@ -18,19 +18,19 @@ namespace monapi.Data
         /// Gets or sets the DbSet for Params entities.
         /// </summary>
         /// <authors>Mattis Galoppin</authors>
-        public DbSet<Params> Params { get; set; }
+        public DbSet<ParamsDAO> Params { get; set; }
 
         /// <summary>
         /// Gets or sets the DbSet for Img_Transformed entities.
         /// </summary>
         /// <authors>Mattis Galoppin</authors>
-        public DbSet<Img_Transformed> Img_Transformed { get; set; }
+        public DbSet<Img_TransformedDAO> Img_Transformed { get; set; }
 
         /// <summary>
         /// Gets or sets the DbSet for Pdf entities.
         /// </summary>
         /// <authors>Mattis Galoppin</authors>
-        public DbSet<Pdf> Pdf { get; set; }
+        public DbSet<PdfDAO> Pdf { get; set; }
         #endregion
 
         #region DbContext Configuration
