@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestBDD.RecordAttributes
+namespace monapi.Data.BDD
 {
     /// <summary>
     /// Represents the attributes of an image.
