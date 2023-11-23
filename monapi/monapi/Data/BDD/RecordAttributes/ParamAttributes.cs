@@ -95,14 +95,6 @@ namespace monapi.Data.BDD
             this.gridColor = gridColor;
             palette = colorPalette;
         }
-        public void ToString()
-        {
-            Console.WriteLine(id);
-            Console.WriteLine(step);
-            Console.WriteLine(nbColor);
-            Console.WriteLine(gridColor);
-            Console.WriteLine(palette);
-        }
         #endregion
     }
 }
