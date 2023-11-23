@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "N0vZbiTWK4RX7rofZS70VG7TWOABFbBl4DDoYDdYG7Y=",
-  "Source": "monapi",
-  "BasePath": "_content/monapi",
+  "Hash": "bUm1vPqwZHJejLhtNIB7WgmMI8ngxypkYrDApg4MvgQ=",
+  "Source": "API",
+  "BasePath": "_content/API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
