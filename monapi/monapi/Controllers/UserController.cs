@@ -65,23 +65,51 @@ namespace monapi.Controllers
           return result;
         }
 
+
+        /// <summary>
+        /// This endpoint will add the palette to the directory
+        /// </summary>
+        /// <param name="CSV">The Palette, as an array of bytes</param>
+        /// <param name="name">Name of the pattern (directory) in which it should be added to</param>
+        /// <returns>Result of the request</returns>
+        /// <author>Maxime LAFFAYE</author>
         [HttpPost("AddCSV")]
-        public ActionResult<byte[]> AddCSV(byte[]? CSV)
+        public ActionResult<byte[]> AddCSV([FromBody] byte[] CSV, [FromQuery] string name)
         {
             ActionResult<byte[]> result = BadRequest("No entry !");
-            result = Ok();
-            FakeDAO.Instance.AddCSV(CSV);
-            return result; ;
+
+            //If it exists, we can use the DAO to add the Palette
+            if (CSV != null)
+            {
+                dAO_Patterns.AddCSV(CSV, name);
+                result = Ok("Success!");
+            }
+
+            return result;
         }
 
+        /// <summary>
+        /// Endpoint to add the image to the directory
+        /// </summary>
+        /// <param name="IMG"></param>
+        /// <returns>Result of the request</returns>
         [HttpPost("AddIMG")]
-        public ActionResult<byte[]> AddIMG(byte[]? IMG)
+        /// <author>Maxime LAFFAYE</author>
+        public ActionResult<byte[]> AddIMG([FromBody] byte[] IMG, [FromQuery] string name)
         {
             ActionResult<byte[]> result = BadRequest("No entry !");
-            result = Ok();
-            FakeDAO.Instance.AddIMG(IMG);
-            return result; ;
+
+            //If it exists, we can use the DAO to add the image
+            if (IMG != null)
+            {
+                dAO_Patterns.AddIMG(IMG, name);
+                result = Ok("Success!");
+            }
+
+            return result;
         }
+
+
         /// <summary>
         /// Endpoint to check if the pattern doesn't exist already
         /// </summary>
