@@ -51,37 +51,5 @@ namespace monapi.Data.BDD
         public int ID_PARAMS { get; set; }
 
         #endregion
-        #region Methods
-
-        /// <summary>
-        /// Inserts values into the Img_Transformed table
-        /// </summary>
-        /// <param name="img">The transformed image</param>
-        /// <param name="name">The name of the image</param>
-        /// <returns>Success or failure message</returns>
-        /// <authors>Mattis Galoppin</authors>
-        public string InsertInImg_Transformed(string img, string name)
-        {
-            string function = "The data was not inserted";
-
-            // Insertion
-            using (var context = new MyContext())
-            {
-                FormattableString sql = $"INSERT INTO Img_Transformed (img, nom_img, id_params) VALUES ({img}, {name}, params_seq.CURRVAL)";
-
-                try
-                {
-                    context.Database.ExecuteSqlInterpolated(sql);
-                    function = "Success";
-                }
-                catch (Exception ex)
-                {
-
-                }
-                return function;
-            }
-        }
-        #endregion
-
     }
 }
