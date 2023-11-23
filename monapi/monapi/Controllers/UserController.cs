@@ -1,3 +1,4 @@
+using API.Data.DAO_Patterns;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using monapi.Data;
@@ -8,6 +9,12 @@ namespace monapi.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
+
+        #region attributes
+        private IDAO_Patterns dAO_Patterns = new DAO_Patterns();
+        #endregion
+
+        #region _________ operations _________
         public UserController() { }
 
         [HttpGet("AddStep")]
@@ -61,7 +68,6 @@ namespace monapi.Controllers
           FakeDAO.Instance.AddPDF(PDF);
           return result; ;
         }
-
         [HttpPost("AddCSV")]
         public ActionResult<byte[]> AddCSV(byte[]? CSV)
         {
@@ -79,24 +85,24 @@ namespace monapi.Controllers
             FakeDAO.Instance.AddIMG(IMG);
             return result; ;
         }
+        /// <summary>
+        /// Endpoint to check if the pattern doesn't exist already
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <author>Maxime LAFFAYE</author>
 
         [HttpGet("CheckIfExist")]
-        public ActionResult<String> CheckIfExist(string? name)
+        public ActionResult<String> CheckIfExist(string name)
         {
             ActionResult<String> result = BadRequest("User already exists!");
-            // CHECK IN THE DIRECTORY IF IT EXISTS, bla bla
 
-            
-
-            Console.WriteLine(name);
-            result = Ok("User exists !");
-
-
-
+            //Using the DAO to check if it exists or not
+            if (!dAO_Patterns.CheckIfPatternExist(name)) result = Ok("User exists !");
             return result;
         }
 
-
+        #endregion
 
     }
 }
