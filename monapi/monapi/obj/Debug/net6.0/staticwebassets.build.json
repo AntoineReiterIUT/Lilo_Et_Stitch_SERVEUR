@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "N0vZbiTWK4RX7rofZS70VG7TWOABFbBl4DDoYDdYG7Y=",
+  "Source": "monapi",
+  "BasePath": "_content/monapi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
