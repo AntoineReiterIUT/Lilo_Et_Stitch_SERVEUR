@@ -79,10 +79,11 @@ namespace monapi.Controllers
         [HttpGet("CheckIfExist")]
         public ActionResult<String> CheckIfExist(string name)
         {
-            ActionResult<String> result = BadRequest("User already exists!");
+            Console.WriteLine(name);
+            ActionResult<String> result = BadRequest("Pattern already exists !");
 
             //Using the DAO to check if it exists or not
-            if (!dAO_Patterns.CheckIfPatternExist(name)) result = Ok("User exists !");
+            if (!dAO_Patterns.CheckIfPatternExist(name)) result = Ok("Pattern doesn't exist !");
             return result;
         }
 
