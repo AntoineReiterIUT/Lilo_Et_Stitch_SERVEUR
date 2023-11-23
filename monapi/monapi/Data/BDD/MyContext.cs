@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using monapi.Data.BDD;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,30 @@ using System.Threading.Tasks;
 
 namespace monapi.Data
 {
-    /// <summary>
-    /// connect to the bdd
-    /// </summary>
     public class MyContext : Microsoft.EntityFrameworkCore.DbContext
     {
+        #region Navigation Properties
+        // Propriétés de navigation
+
+        /// <summary>
+        /// Gets or sets the DbSet for Params entities.
+        /// </summary>
+        /// <authors>Mattis Galoppin</authors>
+        public DbSet<Params> Params { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for Img_Transformed entities.
+        /// </summary>
+        /// <authors>Mattis Galoppin</authors>
+        public DbSet<Img_Transformed> Img_Transformed { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for Pdf entities.
+        /// </summary>
+        /// <authors>Mattis Galoppin</authors>
+        public DbSet<Pdf> Pdf { get; set; }
+        #endregion
+
         #region DbContext Configuration
         /// <summary>
         /// permet de configurer la conxexion a la bdd
