@@ -17,7 +17,7 @@ namespace API.Data.BDD
         /// <param name="csv">Palette DMC</param>
         /// <returns>Success or failure message</returns>
         /// <authors>Mattis Galoppin</authors>
-        public string InsertInParams(int step, int nbColor, string gridColor, string csv):
+        public string InsertInParams(int step, int nbColor, string gridColor, string csv);
         /// <summary>
         /// Returns the parameters of an image with its ID
         /// </summary>
