@@ -51,7 +51,7 @@ namespace monapi.Controllers
         /// <returns>Result of the request</returns>
         /// <author>Maxime LAFFAYE</author>
         [HttpPost("AddPDF")]
-        public ActionResult<byte[]> AddPDF(byte[]? PDF,string name)
+        public ActionResult<byte[]> AddPDF([FromBody] byte[] PDF, [FromQuery] string name)
         {
             ActionResult<byte[]> result = BadRequest("No entry !");
 
