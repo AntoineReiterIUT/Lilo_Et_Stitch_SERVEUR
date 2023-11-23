@@ -2,7 +2,9 @@
 using monapi.Data;
 
 namespace API.Data.BDD
-{
+{/// <summary>
+/// interface Params DAO, for inset and get  params values
+/// </summary>
     public interface IParamsDAO
     {
         #region Methods
