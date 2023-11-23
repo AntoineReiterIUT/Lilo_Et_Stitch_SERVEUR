@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestBDD.TablesSQL
+namespace monapi.Data.BDD
 {
     /// <summary>
     /// Table PARAMS in SQL
