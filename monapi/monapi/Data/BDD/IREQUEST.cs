@@ -3,7 +3,7 @@ using System.Drawing.Imaging;
 
 namespace API.Data.BDD
 {
-    public interface IREQUEST
+    public interface Irequest
     {
         /// <summary>
         /// Inserts values into the Img_Transformed table
