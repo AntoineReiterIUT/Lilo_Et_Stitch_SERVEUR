@@ -14,5 +14,14 @@
         /// <returns>A boolean</returns>
         /// <author>Maxime LAFFAYE</author>
         public bool CheckIfPatternExist(string name);
+
+
+        /// <summary>
+        /// Will create a directory with the name of the pattern. I'll contain the csv, pdf and image after
+        /// </summary>
+        /// <param name="name">The name of the pattern</param>
+        /// <returns>Success or not</returns>
+        /// <author>Maxime LAFFAYE</author>
+        public bool CreatePattern(string name);
     }
 }
