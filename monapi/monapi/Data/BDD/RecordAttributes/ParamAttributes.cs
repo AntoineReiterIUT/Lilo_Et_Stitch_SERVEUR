@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestBDD.RecordAttributes
+namespace monapi.Data.BDD
 {
     /// <summary>
     /// Represents a class for storing parameter attributes.
