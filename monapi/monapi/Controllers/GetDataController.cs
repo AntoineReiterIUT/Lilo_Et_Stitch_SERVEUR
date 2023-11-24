@@ -6,7 +6,7 @@ using monapi.Data;
 using monapi.Data.BDD;
 using System.Drawing;
 using System.Xml.Linq;
-
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Controllers
 {
@@ -42,11 +42,16 @@ namespace API.Controllers
                 //Getting the images from the bdd
                 List<ImageAttributes> images = imageTransformedBDD.GetImagesTransformed((int)page);
 
+                //Adding the image as an array of bytes
+                foreach(ImageAttributes image in images)
+                {
+                    image.Bytes = dAO_Patterns.GetFile(image.Name, "png");
+                }
+
                 //Transforming into a json
                 result = new JsonResult(new { success = true, message = "Success!", data = images });
             }
             return result;
         }
-
     }
 }
