@@ -49,6 +49,32 @@ namespace TestDAO
 
         }
         /// <summary>
+        /// test insert in PDF table 
+        /// </summary>
+        /// <authors>Mattis Galoppin</authors>
+        [Fact]
+        public void InsertInPdf()
+        {
+            //insert data in params before
+            ParamsDAO pa = new ParamsDAO();
+            pa.InsertInParams(0, 0, "000000", "test");
+
+            //insert data in Img_Transformed
+            Img_TransformedDAO img = new Img_TransformedDAO();
+            img.InsertInImg_Transformed("testNomImage", "test");
+
+            //insert data in Pdf
+            PdfDAO pdf = new PdfDAO();
+            string result = pdf.InsertInPdf("testPDF");
+            Assert.Equal("Success", result);
+
+            //delete the rows
+            deleteDataPdf();
+            deleteDataImg();
+            deleteDataParam();
+
+        }
+        /// <summary>
         /// delete the data test in Param
         /// </summary>
         /// <param name="tableName">the name of the table</param>
@@ -72,6 +98,19 @@ namespace TestDAO
             {
                 //delete the row in Params with the image name = testNomImage
                 FormattableString sql = $"DELETE FROM IMG_TRANSFORMED WHERE IMG = 'testNomImage';";
+                context.Database.ExecuteSql(sql);
+            }
+        }
+        /// <summary>
+        /// delete the data test in PDF
+        /// </summary>
+        /// <authors>Mattis Galoppin</authors>
+        public void deleteDataPdf()
+        {
+            using (var context = new MyContext())
+            {
+                //delete the row in Params with the image name = testNomImage
+                FormattableString sql = $"DELETE FROM PDF WHERE THE_PDF = 'testPDF';";
                 context.Database.ExecuteSql(sql);
             }
         }
