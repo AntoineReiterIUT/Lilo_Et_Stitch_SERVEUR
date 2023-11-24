@@ -1,7 +1,9 @@
+using API.Data.BDD;
 using API.Data.DAO_Patterns;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using monapi.Data;
+using monapi.Data.BDD;
 using System.Drawing;
 
 namespace monapi.Controllers
@@ -16,6 +18,8 @@ namespace monapi.Controllers
 
         #region attributes
         private IDAO_Patterns dAO_Patterns = new DAO_Patterns();
+        private IParamsDAO paramsDAO = new ParamsDAO();
+
         #endregion
 
 
