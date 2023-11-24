@@ -73,7 +73,7 @@ namespace monapi.Controllers
             //If it exists, we can use the DAO to add the PDF
             if(PDF != null)
             {
-                dAO_Patterns.AddPDF(PDF,name);
+                dAO_Patterns.AddFile(PDF,name,"pdf");
                 result = Ok("Success!");
             }
 
@@ -96,7 +96,7 @@ namespace monapi.Controllers
             //If it exists, we can use the DAO to add the Palette
             if (CSV != null)
             {
-                dAO_Patterns.AddCSV(CSV, name);
+                dAO_Patterns.AddFile(CSV, name, "csv");
                 result = Ok("Success!");
             }
 
@@ -117,7 +117,7 @@ namespace monapi.Controllers
             //If it exists, we can use the DAO to add the image
             if (IMG != null)
             {
-                dAO_Patterns.AddIMG(IMG, name);
+                dAO_Patterns.AddFile(IMG, name, "png");
                 result = Ok("Success!");
             }
 
