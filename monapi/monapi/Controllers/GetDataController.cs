@@ -53,5 +53,28 @@ namespace API.Controllers
             }
             return result;
         }
+
+
+        /// <summary>
+        /// This endpoint will return the settings
+        /// </summary>
+        /// <param name="Id">Id of the settings</param>
+        /// <returns>settings in a json</returns>
+        /// <author>Maxime LAFFAYE</author>
+        [HttpGet("GetSettings")]
+        public ActionResult GetSettings(int? Id)
+        {
+            ActionResult result = BadRequest("No entry !");
+
+            if (Id != null)
+            {
+                //Getting the settings from the bdd
+                ParamAttributes settings = paramsDAO.GetParamsByIdParam((int)Id);
+
+                //Transforming into a json
+                result = new JsonResult(settings);
+            }
+            return result;
+        }
     }
 }
