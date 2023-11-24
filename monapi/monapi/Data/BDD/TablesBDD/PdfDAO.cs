@@ -49,7 +49,7 @@ namespace monapi.Data.BDD
         /// <authors>Mattis Galoppin</authors>
         public string InsertInPdf(string pathPDF)
         {
-            string function = "The data was not inserted";
+            string function = "The PDF couldn't be inserted";
             using (var context = new MyContext())
             {
                 FormattableString sql = $"INSERT INTO Pdf (the_pdf, id_img) VALUES ({pathPDF}, IMG_TRANSFORMED_SEQ.CURRVAL)";
