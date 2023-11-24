@@ -9,7 +9,7 @@ namespace TestDAO
     /// <summary>
     /// test insertion data class
     /// </summary>
-    public class InsetDATA
+    public class TestInsetData
     {
         /// <summary>
         /// test insert in Params table
