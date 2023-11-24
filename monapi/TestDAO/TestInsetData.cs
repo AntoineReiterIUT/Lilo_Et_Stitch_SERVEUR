@@ -9,7 +9,7 @@ namespace TestDAO
     /// <summary>
     /// test insertion data class
     /// </summary>
-    public class TestInsetData
+    public class InsetDATA
     {
         /// <summary>
         /// test insert in Params table
@@ -101,7 +101,7 @@ namespace TestDAO
                 context.Database.ExecuteSql(sql);
             }
         }
-        /// <summary>
+                /// <summary>
         /// delete the data test in PDF
         /// </summary>
         /// <authors>Mattis Galoppin</authors>
