@@ -49,7 +49,7 @@ namespace API.Controllers
                 }
 
                 //Transforming into a json
-                result = new JsonResult(new { success = true, message = "Success!", data = images });
+                result = new JsonResult(images);
             }
             return result;
         }
