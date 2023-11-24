@@ -18,7 +18,10 @@ namespace monapi.Data.BDD
         private int id_params; //foreign key of params table
         private string name;
         private string path;
+        private Byte[] bytes;
         #endregion
+
+
         #region Properties
 
         /// <summary>
@@ -60,7 +63,18 @@ namespace monapi.Data.BDD
             set { id_params = value; }
         }
 
+        /// <summary>
+        /// Returns the image as an array of bytes
+        /// </summary>
+        /// <author>Maxime LAFFAYE</author>
+        public byte[] Bytes
+        {
+            set { bytes = value; }
+            get { return bytes; }
+        }
+
         #endregion
+
 
         #region Constructors
         /// <summary>
