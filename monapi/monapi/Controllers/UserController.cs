@@ -9,17 +9,17 @@ using System.Drawing;
 namespace monapi.Controllers
 {
     /// <summary>
-    /// This class will be the endpoint handler
+    /// This class will be the endpoint handler (receiving data)
     /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-
         #region attributes
         private IDAO_Patterns dAO_Patterns = new DAO_Patterns();
         private IParamsDAO paramsDAO = new ParamsDAO();
-
+        private IImg_TransformedDAO imageTransformedBDD = new Img_TransformedDAO();
+        private IPdfDAO pdfDao = new PdfDAO();
         #endregion
 
 
@@ -37,15 +37,22 @@ namespace monapi.Controllers
         /// <returns>Result of the request</returns>
         /// <author>Antoine REITER - Maxime LAFFAYE</author>
         [HttpGet("SendParameters")]
-        public ActionResult SendParameters(string ?name, int ?step, int ?maxColors, string ?gridColor)
+        public ActionResult ReceiveParameters(string ?name, int ?step, int ?maxColors, string ?gridColor)
         {
             ActionResult result = BadRequest("No entry !");
-
+            
             if(name != null && step != null && maxColors != null && gridColor != null)
             {
                 //Creating the directory
                 dAO_Patterns.CreatePattern(name);
-                result = Ok("Success!");
+
+                //Inserting into the BDD
+                string successBDD = paramsDAO.InsertInParams((int)step, (int)maxColors, gridColor,string.Format($"{name}_CSV.csv"));
+                successBDD = imageTransformedBDD.InsertInImg_Transformed(string.Format($"{name}_IMG.png"), name);
+                successBDD = pdfDao.InsertInPdf(string.Format($"{name}_PDF.pdf"));                
+
+                //Checking if it succeeded to return success or not
+                if (successBDD == "Success")result = Ok("Success!");
             }
             return result;
         }
@@ -135,6 +142,7 @@ namespace monapi.Controllers
             if (!dAO_Patterns.CheckIfPatternExist(name)) result = Ok("Pattern doesn't exist !");
             return result;
         }
+
 
         #endregion
 
