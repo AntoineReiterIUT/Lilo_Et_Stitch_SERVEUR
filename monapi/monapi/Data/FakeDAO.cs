@@ -5,7 +5,7 @@ namespace monapi.Data
     {
         private static FakeDAO instance;
 
-        private BDD bDD = new BDD();
+        private BDDtest bDD = new BDDtest();
         public static FakeDAO Instance
         {
             get
