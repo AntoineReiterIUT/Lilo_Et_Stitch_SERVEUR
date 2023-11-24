@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using API.Data.BDD;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,7 @@ namespace monapi.Data.BDD
     /// </summary>
     /// <authors>Mattis Galoppin</authors>
     [Table("PDF")]
-    public class PdfDAO
+    public class PdfDAO : IPdfDAO
     {
         #region Properties
         /// <summary>
