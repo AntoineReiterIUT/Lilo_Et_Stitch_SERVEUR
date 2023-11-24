@@ -9,10 +9,11 @@ namespace API.Data.DAO_Patterns
     public class DAO_Patterns : IDAO_Patterns
     {
 
-        #region
+        #region attributes
         //The directory in which the patterns are saved
         private string patternsDirectory = "Patterns";
         #endregion
+
 
         #region opetations
         public bool CheckIfPatternExist(string name)
