@@ -64,7 +64,7 @@ namespace monapi.Data.BDD
         /// <authors>Mattis Galoppin</authors>
         public string InsertInImg_Transformed(string img, string name)
         {
-            string function = "The data was not inserted";
+            string function = "The image couldn't be inserted";
 
 
             using (var context = new MyContext())
@@ -80,7 +80,7 @@ namespace monapi.Data.BDD
                 }
                 catch (Exception ex)
                 {
-
+                    Console.WriteLine(function);
                 }
                 return function;
             }
