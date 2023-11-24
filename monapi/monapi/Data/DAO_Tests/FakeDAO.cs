@@ -1,0 +1,105 @@
+﻿namespace API.Data.DAO_Tests
+{
+    public class FakeDAO : IBDD
+    {
+        private static FakeDAO instance;
+
+        private BDDtest bDD = new BDDtest();
+        public static FakeDAO Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new FakeDAO();
+                return instance;
+            }
+        }
+
+
+        private FakeDAO()
+        {
+
+        }
+
+        public bool AddStep(int step)
+        {
+            bool res = false;
+            if (step != null)
+            {
+                bDD.Step = step;
+                res = true;
+            }
+            return res;
+        }
+
+        public bool Addnb_color(int NB)
+        {
+            bool res = false;
+            if (NB != null)
+            {
+                bDD.nb = NB;
+                res = true;
+            }
+            return res;
+        }
+
+        public bool AddGrid_color(int color)
+        {
+            bool res = false;
+            if (color != null)
+            {
+                bDD.Color = color;
+                res = true;
+            }
+            return res;
+        }
+
+        public bool AddPDF(byte[] PDF)
+        {
+            bool res = false;
+            if (PDF != null)
+            {
+                File.WriteAllBytesAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jambon.pdf"), PDF);
+                res = true;
+
+            }
+            return res;
+        }
+
+        public bool AddCSV(byte[] CSV)
+        {
+            bool res = false;
+            if (CSV != null)
+            {
+                File.WriteAllBytesAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jambon.csv"), CSV);
+                res = true;
+
+            }
+            return res;
+        }
+
+        public bool AddIMG(byte[] IMG)
+        {
+            bool res = false;
+            if (IMG != null)
+            {
+                File.WriteAllBytesAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jambon.jfif"), IMG);
+                res = true;
+
+            }
+            return res;
+        }
+
+        public bool AddName(string Name)
+        {
+            bool res = false;
+            if (Name != null)
+            {
+                bDD.Name = Name;
+                res = true;
+            }
+            return res;
+        }
+
+    }
+}
