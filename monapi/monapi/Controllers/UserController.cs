@@ -6,6 +6,9 @@ using System.Drawing;
 
 namespace monapi.Controllers
 {
+    /// <summary>
+    /// This class will be the endpoint handler
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
@@ -15,7 +18,8 @@ namespace monapi.Controllers
         private IDAO_Patterns dAO_Patterns = new DAO_Patterns();
         #endregion
 
-        #region _________ operations _________
+
+        #region  operations 
         public UserController() { }
 
 
