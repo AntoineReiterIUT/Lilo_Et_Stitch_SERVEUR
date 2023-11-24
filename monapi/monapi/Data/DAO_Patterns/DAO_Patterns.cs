@@ -60,16 +60,16 @@ namespace API.Data.DAO_Patterns
         }
 
 
-        public bool AddPDF(byte[] PDF,string dirName)
+        public bool AddFile(byte[] file,string dirName,string type)
         {
             //Bool to return if it succeeded or not
             bool success;
             try
             {
-                if (PDF != null)
+                if (file != null)
                 {
-                    // Building the path & rebuilding the PDF, ex : /Paterns/NameOfThePattern/NameOfThePattern_PDF.pdf
-                    File.WriteAllBytesAsync(Path.Combine(Path.Combine(patternsDirectory, dirName), string.Format($"{dirName}_PDF.pdf")), PDF);
+                    // Building the path & rebuilding the file, ex : /Paterns/NameOfThePattern/NameOfThePattern_PDF.pdf
+                    File.WriteAllBytesAsync(Path.Combine(Path.Combine(patternsDirectory, dirName), string.Format($"{dirName}_{type.ToUpper()}.{type}")), file);
                     success = true;
                 }
                 else
@@ -84,55 +84,31 @@ namespace API.Data.DAO_Patterns
             return success;
         }
 
-
-        public bool AddCSV(byte[] CSV, string dirName)
+        public byte[] GetFile(string dirName, string type)
         {
-            //Bool to return if it succeeded or not
-            bool success;
+            byte[] fileContent = { 0 };
+
             try
             {
-                if (CSV != null)
+                // Building the path, ex : /Paterns/NameOfThePattern/NameOfThePattern_PDF.pdf
+                string filePath = Path.Combine(Path.Combine(patternsDirectory, dirName), $"{dirName}_{type.ToUpper()}.{type}");
+
+                // Checking if it exists
+                if (File.Exists(filePath))
                 {
-                    // Building the path & rebuilding the CSV, ex : /Paterns/NameOfThePattern/NameOfThePattern_CSV.csv
-                    File.WriteAllBytesAsync(Path.Combine(Path.Combine(patternsDirectory, dirName), string.Format($"{dirName}_CSV.csv")), CSV);
-                    success = true;
+                    // Transforming the file into an array of bytes
+                    fileContent = File.ReadAllBytes(filePath);
                 }
-                else
-                    success = false;
             }
-            catch
+            catch (Exception e)
             {
-                success = false;
+                Console.WriteLine(e);
             }
 
-            //returning the result
-            return success;
+            return fileContent;
         }
 
 
-        public bool AddIMG(byte[] IMG, string dirName)
-        {
-            //Bool to return if it succeeded or not
-            bool success;
-            try
-            {
-                if (IMG != null)
-                {
-                    // Building the path & rebuilding the CSV, ex : /Paterns/NameOfThePattern/NameOfThePattern_IMG.png
-                    File.WriteAllBytesAsync(Path.Combine(Path.Combine(patternsDirectory, dirName), string.Format($"{dirName}_IMG.png")), IMG);
-                    success = true;
-                }
-                else
-                    success = false;
-            }
-            catch
-            {
-                success = false;
-            }
-
-            //returning the result
-            return success;
-        }
         #endregion
     }
 }
