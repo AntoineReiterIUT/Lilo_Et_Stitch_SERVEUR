@@ -1,4 +1,5 @@
-﻿namespace monapi.Data
+
+namespace monapi.Data
 {
     public class BDDtest
     {

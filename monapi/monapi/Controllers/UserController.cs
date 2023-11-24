@@ -1,89 +1,138 @@
+using API.Data.DAO_Patterns;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using monapi.Data;
+using System.Drawing;
 
 namespace monapi.Controllers
 {
+    /// <summary>
+    /// This class will be the endpoint handler
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
+
+        #region attributes
+        private IDAO_Patterns dAO_Patterns = new DAO_Patterns();
+        #endregion
+
+
+        #region  operations 
         public UserController() { }
 
-        [HttpGet("AddStep")]
-        public ActionResult<int> AddStep(int? id)
+
+        /// <summary>
+        /// This endpoint will receive the parameters
+        /// </summary>
+        /// <param name="name">Name of the pattern</param>
+        /// <param name="step">Step of the cases</param>
+        /// <param name="maxColors">Max amount of colors</param>
+        /// <param name="gridColor">Color of the grid</param>
+        /// <returns>Result of the request</returns>
+        /// <author>Antoine REITER - Maxime LAFFAYE</author>
+        [HttpGet("SendParameters")]
+        public ActionResult SendParameters(string ?name, int ?step, int ?maxColors, string ?gridColor)
         {
-            ActionResult<int> result = BadRequest("No entry !");
+            ActionResult result = BadRequest("No entry !");
 
-            if (id.HasValue)
+            if(name != null && step != null && maxColors != null && gridColor != null)
             {
-                result = Ok();
-                FakeDAO.Instance.AddStep(id.Value);
-                
+                //Creating the directory
+                dAO_Patterns.CreatePattern(name);
+                result = Ok("Success!");
             }
-                return result;
-        }
-
-        [HttpGet("Addnb_color")]
-            public ActionResult<int> Addnb_color(int? NB)
-        {
-            ActionResult<int> result = BadRequest("No entry !");
-
-            if (NB.HasValue)
-            {
-                result = Ok();
-                FakeDAO.Instance.AddStep(NB.Value);
-
-            }
-            return result; ;
+            return result;
         }
 
 
-        [HttpGet("Addgrid_color")]
-        public ActionResult<int> Addgrid_color(int? color)
-        {
-            ActionResult<int> result = BadRequest("No entry !");
-
-            if (color.HasValue)
-            {
-                result = Ok();
-                FakeDAO.Instance.AddStep(color.Value);
-
-            }
-            return result; ;
-        }
-
+        /// <summary>
+        /// This endpoint will add the pdf to the directory
+        /// </summary>
+        /// <param name="PDF">The PDF, as an array of bytes</param>
+        /// <param name="name">Name of the pattern (directory) in which it should be added to</param>
+        /// <returns>Result of the request</returns>
+        /// <author>Maxime LAFFAYE</author>
         [HttpPost("AddPDF")]
-        public ActionResult<byte[]> AddPDF(byte[]? PDF)
+        public ActionResult<byte[]> AddPDF([FromBody] byte[] PDF, [FromQuery] string name)
         {
-          ActionResult<byte[]> result = BadRequest("No entry !");
-          result = Ok();
-          FakeDAO.Instance.AddPDF(PDF);
-          return result; ;
+            ActionResult<byte[]> result = BadRequest("No entry !");
+
+            //If it exists, we can use the DAO to add the PDF
+            if(PDF != null)
+            {
+                dAO_Patterns.AddPDF(PDF,name);
+                result = Ok("Success!");
+            }
+
+          return result;
         }
 
-        [HttpGet("CheckIfExist")]
-        public ActionResult<String> CheckIfExist(string? name)
+
+        /// <summary>
+        /// This endpoint will add the palette to the directory
+        /// </summary>
+        /// <param name="CSV">The Palette, as an array of bytes</param>
+        /// <param name="name">Name of the pattern (directory) in which it should be added to</param>
+        /// <returns>Result of the request</returns>
+        /// <author>Maxime LAFFAYE</author>
+        [HttpPost("AddCSV")]
+        public ActionResult<byte[]> AddCSV([FromBody] byte[] CSV, [FromQuery] string name)
         {
-            ActionResult<String> result = BadRequest("User already exists!");
-            // CHECK IN THE DIRECTORY IF IT EXISTS, bla bla
+            ActionResult<byte[]> result = BadRequest("No entry !");
 
-            
+            //If it exists, we can use the DAO to add the Palette
+            if (CSV != null)
+            {
+                dAO_Patterns.AddCSV(CSV, name);
+                result = Ok("Success!");
+            }
 
-            Console.WriteLine(name);
-            result = Ok("User exists !");
+            return result;
+        }
 
+        /// <summary>
+        /// Endpoint to add the image to the directory
+        /// </summary>
+        /// <param name="IMG"></param>
+        /// <returns>Result of the request</returns>
+        [HttpPost("AddIMG")]
+        /// <author>Maxime LAFFAYE</author>
+        public ActionResult<byte[]> AddIMG([FromBody] byte[] IMG, [FromQuery] string name)
+        {
+            ActionResult<byte[]> result = BadRequest("No entry !");
 
+            //If it exists, we can use the DAO to add the image
+            if (IMG != null)
+            {
+                dAO_Patterns.AddIMG(IMG, name);
+                result = Ok("Success!");
+            }
 
             return result;
         }
 
 
         /// <summary>
-        /// Ajoute un utilisateur
+        /// Endpoint to check if the pattern doesn't exist already
         /// </summary>
-        /// <param name="user">L'utilisateur à ajouter</param>
-        /// <returns></returns>
+        /// <param name="name"></param>
+        /// <returns>Result of the request</returns>
+        /// <author>Maxime LAFFAYE</author>
+
+        [HttpGet("CheckIfExist")]
+        public ActionResult<String> CheckIfExist(string name)
+        {
+            Console.WriteLine(name);
+            ActionResult<String> result = BadRequest("Pattern already exists !");
+
+            //Using the DAO to check if it exists or not
+            if (!dAO_Patterns.CheckIfPatternExist(name)) result = Ok("Pattern doesn't exist !");
+            return result;
+        }
+
+        #endregion
 
     }
 }

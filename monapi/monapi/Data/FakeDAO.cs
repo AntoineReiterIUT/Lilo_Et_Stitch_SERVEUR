@@ -66,6 +66,41 @@ namespace monapi.Data
             }
             return res;
         }
-        
+
+        public bool AddCSV(byte[] CSV)
+        {
+            bool res = false;
+            if (CSV != null)
+            {
+                File.WriteAllBytesAsync(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jambon.csv"), CSV);
+                res = true;
+
+            }
+            return res;
+        }
+
+        public bool AddIMG(byte[] IMG)
+        {
+            bool res = false;
+            if (IMG != null)
+            {
+                File.WriteAllBytesAsync(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jambon.jfif"), IMG);
+                res = true;
+
+            }
+            return res;
+        }
+
+        public bool AddName(string Name)
+        {
+            bool res = false;
+            if (Name != null)
+            {
+                bDD.Name = Name;
+                res = true;
+            }
+            return res;
+        }
+
     }
 }
