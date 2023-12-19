@@ -18,13 +18,14 @@ namespace TestDAO
         [Fact]
         public void InsertInParams()
         {
+            initialise.DeleteAll();
             //insert data in params
             ParamsDAO pa = new ParamsDAO();
             string result = pa.InsertInParams(0, 0, "000000", "test");
             Assert.Equal("Success", result);
 
             //delete the row
-            deleteDataParam();
+            initialise.DeleteAll();
         }
         /// <summary>
         /// test insert in Image table 
@@ -33,6 +34,7 @@ namespace TestDAO
         [Fact]
         public void InsertInImg()
         {
+            initialise.DeleteAll();
             //insert data in params before
             ParamsDAO pa = new ParamsDAO();
             pa.InsertInParams(0, 0, "000000", "test");
@@ -44,8 +46,7 @@ namespace TestDAO
             Assert.Equal("Success", result);
 
             //delete the rows
-            deleteDataImg();
-            deleteDataParam();
+            initialise.DeleteAll();
 
         }
         /// <summary>
@@ -55,6 +56,7 @@ namespace TestDAO
         [Fact]
         public void InsertInPdf()
         {
+            initialise.DeleteAll();
             //insert data in params before
             ParamsDAO pa = new ParamsDAO();
             pa.InsertInParams(0, 0, "000000", "test");
@@ -68,51 +70,8 @@ namespace TestDAO
             string result = pdf.InsertInPdf("testPDF");
             Assert.Equal("Success", result);
 
-            //delete the rows
-            deleteDataPdf();
-            deleteDataImg();
-            deleteDataParam();
+            initialise.DeleteAll();
 
-        }
-        /// <summary>
-        /// delete the data test in Param
-        /// </summary>
-        /// <param name="tableName">the name of the table</param>
-        ///<authors>Mattis Galoppin</authors>
-        public void deleteDataParam()
-        {
-            using (var context = new MyContext())
-            {
-                //delete the row in Params with the PaletteDMC name = test
-                FormattableString sql = $"DELETE FROM PARAMS WHERE PALETTEDMC = 'test';";
-                context.Database.ExecuteSql(sql);
-            }
-        }
-        /// <summary>
-        /// delete the data test in Img_Transformed
-        /// </summary>
-        /// <authors>Mattis Galoppin</authors>
-        public void deleteDataImg()
-        {
-            using (var context = new MyContext())
-            {
-                //delete the row in Params with the image name = testNomImage
-                FormattableString sql = $"DELETE FROM IMG_TRANSFORMED WHERE IMG = 'testNomImage';";
-                context.Database.ExecuteSql(sql);
-            }
-        }
-                /// <summary>
-        /// delete the data test in PDF
-        /// </summary>
-        /// <authors>Mattis Galoppin</authors>
-        public void deleteDataPdf()
-        {
-            using (var context = new MyContext())
-            {
-                //delete the row in Params with the image name = testNomImage
-                FormattableString sql = $"DELETE FROM PDF WHERE THE_PDF = 'testPDF';";
-                context.Database.ExecuteSql(sql);
-            }
         }
     }
 }
