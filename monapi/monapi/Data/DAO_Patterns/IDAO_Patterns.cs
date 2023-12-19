@@ -44,8 +44,16 @@
         /// <author>Maxime LAFFAYE</author>
         public byte[] GetFile(string dirName, string type);
 
+        /// <summary>
+        /// will Delete a Patern in the API not in the DB
+        /// </summary>
+        /// <param name="name"> the name of the pattern to delete</param>
+        /// <returns> return a bool to indicate succes </returns>
         public bool DeletePattern(string? name);
 
+        /// <summary>
+        /// will delete every patern in the API and in the DB
+        /// </summary>
         public void DeleteAllPatterns();
     }
 }

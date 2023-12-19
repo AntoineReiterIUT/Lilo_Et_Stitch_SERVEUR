@@ -1,7 +1,5 @@
 ﻿using API.Data.BDD;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using System.Xml.Linq;
+
 
 namespace API.Data.DAO_Patterns
 {
@@ -65,28 +63,37 @@ namespace API.Data.DAO_Patterns
         /// </summary>
         /// <param name="name"> the name of the patern that must be deleted </param>
         /// <returns>true if succes false is not</returns>
+        /// <exception cref="Exception">catch the excpetion, an exceptin may trigger when deletting all the file when they are empty</exception>
         public bool DeletePattern(string? name)
         {
-            bool success = false;
-            if (name != null)
+            try
             {
-                DirectoryInfo di = new DirectoryInfo(patternsDirectory);
-                DirectoryInfo[] subDirectories = di.GetDirectories();
-                foreach (DirectoryInfo subDirectory in subDirectories)
+
+                bool success = false;
+                if (name != null)
                 {
-                    if (name == subDirectory.Name)
+                    DirectoryInfo di = new DirectoryInfo(patternsDirectory);
+                    DirectoryInfo[] subDirectories = di.GetDirectories();
+                    foreach (DirectoryInfo subDirectory in subDirectories)
                     {
-                        foreach (FileInfo file in subDirectory.GetFiles())
+                        if (name == subDirectory.Name)
                         {
-                            file.Delete();
+                            foreach (FileInfo file in subDirectory.GetFiles())
+                            {
+                                file.Delete();
+                            }
+                            subDirectory.Delete();
+                            success = true;
                         }
-                        subDirectory.Delete();
-                        success = true;
                     }
+
                 }
-                
+                return success;
             }
-            return success;
+            catch(Exception ex)
+            {
+                throw new Exception("Il se peut que l'API est vide erreur complete : "+ex);
+            }
         }
 
 
