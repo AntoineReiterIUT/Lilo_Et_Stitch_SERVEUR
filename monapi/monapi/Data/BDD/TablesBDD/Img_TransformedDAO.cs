@@ -133,6 +133,7 @@ namespace monapi.Data.BDD
 
             using (var context = new MyContext())
             {
+                //try to recup in filteredImages all of images who contains the word
                 var filteredImages = context.Img_Transformed
                 .Where(img => img.NOM_IMG.Contains(word))
                 .OrderBy(img => img.ID_IMG);
