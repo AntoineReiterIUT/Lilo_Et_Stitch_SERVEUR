@@ -68,6 +68,7 @@ namespace TestDAO
 
             ParamAttributes res = pa.GetParamsByIdParam(result.ID_params);
             Assert.Equal(res.ColorPalette,"testPalette");
+            initialise.DeleteAll();
         }
         /// <summary>
         /// Test the GetPdfById in the BDD
@@ -92,7 +93,7 @@ namespace TestDAO
             ImageAttributes imageAttributes = img.GetImagesTransformed(0)[0];
             string result =  pdf.GetPdfByIdImg(imageAttributes.ID);
             Assert.Equal("fakePath", result);
-
+            initialise.DeleteAll();
 
         }
         /// <summary>
@@ -114,7 +115,7 @@ namespace TestDAO
 
             Assert.Equal("test", imageAttributes[0].Name);
             Assert.Equal("fakePath", imageAttributes[0].Path);
-
+            initialise.DeleteAll();
         }
         /// <summary>
         /// wait 7 seconds
