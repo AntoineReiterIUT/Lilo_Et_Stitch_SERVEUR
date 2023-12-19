@@ -31,20 +31,42 @@ namespace TestDAO
 
             img.InsertInImg_Transformed("FakePath", "testNomImage");
             img.InsertInImg_Transformed("secondFakePath", "testNomImage2");
-
-           // img.InsertInImg_Transformed("testImg", "test");
             
             //we keep the images
             ImageAttributes result = img.GetImagesTransformed(0)[0];
             ImageAttributes result2 = img.GetImagesTransformed(0)[1];
 
-            //check the name
+            //check the names
             Assert.Equal("testNomImage",result.Name);
             Assert.Equal("testNomImage2", result2.Name);
 
 
-            DeleteAll();
+           // DeleteAll();
         }
+        /// <summary>
+        /// Test get param by id
+        /// </summary>
+        [Fact]
+        public void TestGetDataParam()
+        {
+            //wait 7 seconds before delete all
+            wait7s().Wait();
+            DeleteAll();
+            //insertion data
+            ParamsDAO pa = new ParamsDAO();
+            pa.InsertInParams(0, 0, "000000", "testPalette");
+
+
+            //insert data in Img_Transformed
+            Img_TransformedDAO img = new Img_TransformedDAO();
+            img.InsertInImg_Transformed("testNomImage", "test");
+
+            ImageAttributes result = img.GetImagesTransformed(0)[0];
+
+            ParamAttributes res = pa.GetParamsByIdParam(result.ID_params);
+            Assert.Equal(res.ColorPalette,"testPalette");
+        }
+
         /// <summary>
         /// delete all tables
         /// </summary>
