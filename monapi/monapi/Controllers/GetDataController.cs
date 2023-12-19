@@ -7,6 +7,7 @@ using monapi.Data.BDD;
 using System.Drawing;
 using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace API.Controllers
 {
@@ -23,6 +24,8 @@ namespace API.Controllers
         private IParamsDAO paramsDAO = new ParamsDAO();
         private IImg_TransformedDAO imageTransformedBDD = new Img_TransformedDAO();
         private IPdfDAO pdfDao = new PdfDAO();
+        private List<ImageAttributes> ListeSchearch = new List<ImageAttributes>();
+        private string NameOfLastchercher = "";
         #endregion
 
 
@@ -94,5 +97,39 @@ namespace API.Controllers
             }
             return result;
         }
+
+        [HttpGet("GetImgBySearch")]
+        public ActionResult GetImgBySearch(string? name , int page)
+        {
+
+            ActionResult result = BadRequest("No entry !");
+            
+            Img_TransformedDAO x = new Img_TransformedDAO();
+
+                //Getting the images from the bdd
+            if (name != NameOfLastchercher) 
+            {
+            ListeSchearch = x.GetImagesBySearch(name);
+                NameOfLastchercher = name;
+
+                //Adding the image as an array of bytes
+                foreach (ImageAttributes image in ListeSchearch)
+                {
+                    image.Bytes = dAO_Patterns.GetFile(image.Name, "png");
+                }
+            }
+            List<ImageAttributes> Pagesearch = new List<ImageAttributes>();
+
+            // se calcule me sert a avoir un interval, peut certainement etre mieux fait
+            for (int i = (page+1)*6-6;i< (page+1)*6;i++)
+            {
+                if (ListeSchearch[i] != null)
+                Pagesearch.Add(ListeSchearch[i]);
+            }
+            //Transforming into a json
+            result = new JsonResult(Pagesearch);
+            return result;
+        }        
     }
 }
+
