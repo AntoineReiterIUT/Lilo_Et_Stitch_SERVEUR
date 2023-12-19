@@ -18,6 +18,7 @@ namespace TestDAO
         /// <summary>
         /// test to getImagesTransformed 
         /// </summary>
+        /// <authors>Mattis Galoppin</authors>
         [Fact]
         public void TestGetDataImg()
         {
@@ -47,6 +48,7 @@ namespace TestDAO
         /// <summary>
         /// Test get param by id
         /// </summary>
+        /// <authors>Mattis Galoppin</authors>
         [Fact]
         public void TestGetDataParam()
         {
@@ -67,10 +69,36 @@ namespace TestDAO
             ParamAttributes res = pa.GetParamsByIdParam(result.ID_params);
             Assert.Equal(res.ColorPalette,"testPalette");
         }
+        /// <summary>
+        /// Test the GetPdfById in the BDD
+        /// </summary>
+        /// <authors>Mattis Galoppin</authors>
+        [Fact]
+        public void TestGetDataPdf()
+        {
+            initialise.DeleteAll();
+            //insertion data
+            ParamsDAO pa = new ParamsDAO();
+            pa.InsertInParams(0, 0, "000000", "testPalette");
 
+            //insert data in Img_Transformed
+            Img_TransformedDAO img = new Img_TransformedDAO();
+            img.InsertInImg_Transformed("testNomImage", "test");
+
+           
+            IPdfDAO pdf = new PdfDAO();
+            pdf.InsertInPdf("fakePath");
+
+            ImageAttributes imageAttributes = img.GetImagesTransformed(0)[0];
+            string result =  pdf.GetPdfByIdImg(imageAttributes.ID);
+            Assert.Equal("fakePath", result);
+
+
+        }
         /// <summary>
         /// wait 7 seconds
         /// </summary>
+        /// <authors>Mattis Galoppin</authors>
         public async Task wait7s()
         {
             await Task.Delay(7000);
