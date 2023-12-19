@@ -101,8 +101,6 @@ namespace monapi.Data.BDD
                 int imagesPerPage = 6;
 
                 // Numéro de la première image à récupérer
-                int offset = context.Img_Transformed.Count(); // Vous pouvez ajuster cela en fonction de votre critère de tri
-
                 var images = context.Img_Transformed 
                     .OrderBy(img => img.ID_IMG)
                     .Skip(page * imagesPerPage) // we go to the good image
@@ -125,7 +123,7 @@ namespace monapi.Data.BDD
         /// </summary>
         /// <param name="word">name of image to search</param>
         /// <returns>a list of images that contain the word</returns>
-        public List<ImageAttributes> GetImagesBySearch(string word)
+        public List<ImageAttributes> GetImagesBySearch(string word, int page)
         {
             //initialise the list
             List<ImageAttributes> ListImg = new List<ImageAttributes>();
@@ -133,10 +131,13 @@ namespace monapi.Data.BDD
 
             using (var context = new MyContext())
             {
+                int imagesPerPage = 6;
                 //try to recup in filteredImages all of images who contains the word
                 var filteredImages = context.Img_Transformed
                 .Where(img => img.NOM_IMG.Contains(word))
-                .OrderBy(img => img.ID_IMG);
+                .OrderBy(img => img.ID_IMG)
+                .Skip(page * imagesPerPage) // we go to the good image
+                .Take(imagesPerPage); //we take the 6 images next
 
                 if (filteredImages != null) //the row is not null
                 {

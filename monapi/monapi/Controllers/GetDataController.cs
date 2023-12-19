@@ -109,7 +109,7 @@ namespace API.Controllers
                 //Getting the images from the bdd
             if (name != NameOfLastchercher) 
             {
-            ListeSchearch = x.GetImagesBySearch(name);
+            ListeSchearch = x.GetImagesBySearch(name,page);
                 NameOfLastchercher = name;
 
                 //Adding the image as an array of bytes

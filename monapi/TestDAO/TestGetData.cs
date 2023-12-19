@@ -111,7 +111,7 @@ namespace TestDAO
             //insert data in Img_Transformed
             Img_TransformedDAO img = new Img_TransformedDAO();
             img.InsertInImg_Transformed("fakePath", "test");
-            List<ImageAttributes> imageAttributes = img.GetImagesBySearch("te");
+            List<ImageAttributes> imageAttributes = img.GetImagesBySearch("te",0);
 
             Assert.Equal("test", imageAttributes[0].Name);
             Assert.Equal("fakePath", imageAttributes[0].Path);
