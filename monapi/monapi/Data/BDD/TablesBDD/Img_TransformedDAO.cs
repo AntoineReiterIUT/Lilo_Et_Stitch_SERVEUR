@@ -101,7 +101,7 @@ namespace monapi.Data.BDD
                 // Numéro de la première image à récupérer
                 int offset = context.Img_Transformed.Count(); // Vous pouvez ajuster cela en fonction de votre critère de tri
 
-                var images = context.Img_Transformed
+                var images = context.Img_Transformed 
                     .OrderBy(img => img.ID_IMG)
                     .Skip(page * imagesPerPage) // we go to the good image
                     .Take(imagesPerPage); //we take the 6 images next
