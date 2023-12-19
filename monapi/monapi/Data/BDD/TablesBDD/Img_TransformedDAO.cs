@@ -10,6 +10,7 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace monapi.Data.BDD
 {
@@ -90,6 +91,7 @@ namespace monapi.Data.BDD
         /// </summary>
         /// <param name="page">the number of the page to display</param>
         /// <returns>6 images with attributes</returns>
+        /// <authors>Mattis Galoppin</authors>
         public List<ImageAttributes> GetImagesTransformed(int page)
         {
             List<ImageAttributes> ListImg = new List<ImageAttributes>();
@@ -118,7 +120,35 @@ namespace monapi.Data.BDD
             }
             return ListImg;
         }
+        /// <summary>
+        /// get a list of images research with a word
+        /// </summary>
+        /// <param name="word">name of image to search</param>
+        /// <returns>a list of images that contain the word</returns>
+        public List<ImageAttributes> GetImagesBySearch(string word)
+        {
+            //initialise the list
+            List<ImageAttributes> ListImg = new List<ImageAttributes>();
+            ImageAttributes imgA = new ImageAttributes(-1, "", "", -1);
 
+            using (var context = new MyContext())
+            {
+                var filteredImages = context.Img_Transformed
+                .Where(img => img.NOM_IMG.Contains(word))
+                .OrderBy(img => img.ID_IMG);
+
+                if (filteredImages != null) //the row is not null
+                {
+                    foreach (var img in filteredImages) //add every image in the list
+                    {
+                        imgA = new ImageAttributes(img.ID_IMG, img.NOM_IMG, img.IMG, img.ID_PARAMS);
+                        ListImg.Add(imgA);
+                    }
+                }
+            }
+            return ListImg;
+            
+        }
         #endregion
     }
 }

@@ -96,6 +96,27 @@ namespace TestDAO
 
         }
         /// <summary>
+        /// test GetImagesBySearch
+        /// </summary>
+        /// <authors>Mattis Galoppin</authors>
+        [Fact]
+        public void TestGetDataBySearch()
+        {
+            initialise.DeleteAll();
+            //insertion data
+            ParamsDAO pa = new ParamsDAO();
+            pa.InsertInParams(0, 0, "000000", "testPalette");
+
+            //insert data in Img_Transformed
+            Img_TransformedDAO img = new Img_TransformedDAO();
+            img.InsertInImg_Transformed("fakePath", "test");
+            List<ImageAttributes> imageAttributes = img.GetImagesBySearch("te");
+
+            Assert.Equal("test", imageAttributes[0].Name);
+            Assert.Equal("fakePath", imageAttributes[0].Path);
+
+        }
+        /// <summary>
         /// wait 7 seconds
         /// </summary>
         /// <authors>Mattis Galoppin</authors>
