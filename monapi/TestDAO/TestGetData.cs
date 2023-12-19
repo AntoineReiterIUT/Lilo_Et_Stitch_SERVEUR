@@ -43,7 +43,7 @@ namespace TestDAO
             Assert.Equal("testNomImage2", result2.Name);
 
 
-           // DeleteAll();
+           initialise.DeleteAll();
         }
         /// <summary>
         /// Test get param by id
