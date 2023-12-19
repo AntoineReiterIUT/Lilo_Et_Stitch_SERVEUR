@@ -142,6 +142,17 @@ namespace monapi.Controllers
             if (!dAO_Patterns.CheckIfPatternExist(name)) result = Ok("Pattern doesn't exist !");
             return result;
         }
+         [HttpGet("deleteOnePatterns")]
+        public ActionResult clearOnePatterns(string name)
+        {
+            return new OkObjectResult(dAO_Patterns.DeletePattern(name));
+        }
+
+        [HttpGet("DeleteAll")]
+        public void clearAll()
+        {
+            dAO_Patterns.DeleteAllPatterns();
+        }
 
 
         #endregion

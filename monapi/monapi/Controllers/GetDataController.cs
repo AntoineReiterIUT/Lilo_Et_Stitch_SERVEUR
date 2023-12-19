@@ -76,5 +76,23 @@ namespace API.Controllers
             }
             return result;
         }
+
+
+        /// <summary>
+        /// This endpoint will return the PDF, using the Name of the project
+        /// </summary>
+        /// <param name="name"> the name of the project </param>
+        /// <returns> the byte array on Json of the PDF </returns>
+        [HttpGet("GetPDF")]
+        public ActionResult GetPDF(string? name)
+        {
+            ActionResult result = BadRequest("No entry !");
+            if (name != null)
+            {
+                byte[] test= dAO_Patterns.GetFile(name, "pdf");
+                result = new JsonResult(test);
+            }
+            return result;
+        }
     }
 }

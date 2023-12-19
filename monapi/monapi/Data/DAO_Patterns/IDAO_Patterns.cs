@@ -43,5 +43,9 @@
         /// <returns>Array of bytes</returns>
         /// <author>Maxime LAFFAYE</author>
         public byte[] GetFile(string dirName, string type);
+
+        public bool DeletePattern(string? name);
+
+        public void DeleteAllPatterns();
     }
 }

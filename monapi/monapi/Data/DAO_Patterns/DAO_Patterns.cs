@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.OAuth;
+﻿using API.Data.BDD.TablesBDD;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Xml.Linq;
 
 namespace API.Data.DAO_Patterns
@@ -57,6 +59,53 @@ namespace API.Data.DAO_Patterns
 
             //returning the result
             return success;
+        }
+        /// <summary>
+        /// used to delete one paterne from the API
+        /// </summary>
+        /// <param name="name"> the name of the patern that must be deleted </param>
+        /// <returns>true if succes false is not</returns>
+        public bool DeletePattern(string? name)
+        {
+            bool success = false;
+            if (name != null)
+            {
+                DirectoryInfo di = new DirectoryInfo(patternsDirectory);
+                DirectoryInfo[] subDirectories = di.GetDirectories();
+                foreach (DirectoryInfo subDirectory in subDirectories)
+                {
+                    if (name == subDirectory.Name)
+                    {
+                        foreach (FileInfo file in subDirectory.GetFiles())
+                        {
+                            file.Delete();
+                        }
+                        subDirectory.Delete();
+                        success = true;
+                    }
+                }
+                
+            }
+            return success;
+        }
+
+
+        /// <summary>
+        /// used to clear all patern from the API
+        /// </summary>
+
+        public void DeleteAllPatterns()
+        {
+            DirectoryInfo di = new DirectoryInfo(patternsDirectory);
+            foreach (DirectoryInfo subDirectory in di.GetDirectories())
+            {
+                foreach (FileInfo file in subDirectory.GetFiles())
+                {
+                    file.Delete();
+                }
+                subDirectory.Delete();
+            }
+            initialise.DeleteAllInBdd();
         }
 
 
