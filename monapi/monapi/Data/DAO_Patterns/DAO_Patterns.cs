@@ -1,4 +1,4 @@
-﻿using API.Data.BDD.TablesBDD;
+﻿using API.Data.BDD;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Xml.Linq;
@@ -105,7 +105,7 @@ namespace API.Data.DAO_Patterns
                 }
                 subDirectory.Delete();
             }
-            initialise.DeleteAllInBdd();
+            initialise.DeleteAll();
         }
 
 

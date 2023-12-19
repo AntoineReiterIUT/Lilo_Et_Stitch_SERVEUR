@@ -1,11 +1,19 @@
 ﻿using monapi.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Data.BDD.TablesBDD
+namespace API.Data.BDD
 {
+    /// <summary>
+    /// initialize the BDD
+    /// </summary>
     public static class initialise
     {
-        public static void DeleteAllInBdd()
+
+        /// <summary>
+        /// delete all tables
+        /// </summary>
+        /// <authors>Mattis Galoppin</authors>
+        public static void DeleteAll()
         {
             using (var context = new MyContext())
             {

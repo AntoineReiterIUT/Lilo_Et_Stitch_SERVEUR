@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using API.Data.BDD;
+using Microsoft.EntityFrameworkCore;
 using monapi.Data;
 using monapi.Data.BDD;
 using System;
@@ -22,7 +23,7 @@ namespace TestDAO
         {
             //wait 7 seconds before delete all
             wait7s().Wait();
-            DeleteAll();
+            initialise.DeleteAll();
             //insertion data
             ParamsDAO pa = new ParamsDAO();
             pa.InsertInParams(0, 0, "000000", "test");
@@ -51,7 +52,7 @@ namespace TestDAO
         {
             //wait 7 seconds before delete all
             wait7s().Wait();
-            DeleteAll();
+            initialise.DeleteAll();
             //insertion data
             ParamsDAO pa = new ParamsDAO();
             pa.InsertInParams(0, 0, "000000", "testPalette");
@@ -67,27 +68,6 @@ namespace TestDAO
             Assert.Equal(res.ColorPalette,"testPalette");
         }
 
-        /// <summary>
-        /// delete all tables
-        /// </summary>
-        /// <authors>Mattis Galoppin</authors>
-        public void DeleteAll()
-        {
-            using (var context = new MyContext())
-            {
-                //delete PDF table
-                FormattableString sql = $"DELETE FROM PDF;";
-                context.Database.ExecuteSql(sql);
-
-                //delete img table
-                sql = $"DELETE FROM IMG_TRANSFORMED;";
-                context.Database.ExecuteSql(sql);
-
-                //delete Params table Params
-                sql = $"DELETE FROM PARAMS;";
-                context.Database.ExecuteSql(sql);
-            }
-        }
         /// <summary>
         /// wait 7 seconds
         /// </summary>
