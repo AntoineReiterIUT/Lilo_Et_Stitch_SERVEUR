@@ -118,6 +118,30 @@ namespace TestDAO
             initialise.DeleteAll();
         }
         /// <summary>
+        /// Test the GetNumberPages
+        /// </summary>
+        /// <authors>Mattis Galoppin</authors>
+        [Fact]
+        public void TestGetDataPages()
+        {
+            initialise.DeleteAll();
+            ParamsDAO pa = new ParamsDAO();
+            pa.InsertInParams(0, 0, "000000", "testPalette");
+
+            Img_TransformedDAO img = new Img_TransformedDAO();
+            img.InsertInImg_Transformed("fakePath", "test");
+            //test number pages
+            Assert.Equal(1, img.GetNumberPage(""));
+            img.InsertInImg_Transformed("fakePath2", "test2");
+            Assert.Equal(2, img.GetNumberPage(""));
+
+            img.InsertInImg_Transformed("fakePath3", "test3");
+            //test with search
+            Assert.Equal(1, img.GetNumberPage("test3"));
+            Assert.Equal(3, img.GetNumberPage(""));
+            initialise.DeleteAll();
+        }
+        /// <summary>
         /// wait 7 seconds
         /// </summary>
         /// <authors>Mattis Galoppin</authors>

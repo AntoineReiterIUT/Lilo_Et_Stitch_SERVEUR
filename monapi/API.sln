@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "monapi\API.csproj", "{33320E3F-52E2-4B20-B340-660BA755FA76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDAO", "TestDAO\TestDAO.csproj", "{B3C6CFAE-3DB4-4E3F-A3B7-735C7582C72F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDAO", "TestDAO\TestDAO.csproj", "{B3C6CFAE-3DB4-4E3F-A3B7-735C7582C72F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
