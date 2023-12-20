@@ -24,8 +24,6 @@ namespace API.Controllers
         private IParamsDAO paramsDAO = new ParamsDAO();
         private IImg_TransformedDAO imageTransformedBDD = new Img_TransformedDAO();
         private IPdfDAO pdfDao = new PdfDAO();
-        private List<ImageAttributes> ListeSchearch = new List<ImageAttributes>();
-        private string NameOfLastchercher = "";
         #endregion
 
 
@@ -97,47 +95,65 @@ namespace API.Controllers
             }
             return result;
         }
-
-
         /// <summary>
-        /// Will get the images of the given page
+        /// This endpoint will return the 6 images with the same name as the researched one
         /// </summary>
-        /// <param name="name">Name of the patterns to look for </param>
-        /// <param name="page">Number of the page</param>
-        /// <returns></returns>
+        /// <param name="name"> name of search </param>
+        /// <param name="page"> the page number </param>
+        /// <returns> return bad request if name is null if not, return the Json of 6 ImageAttributes</returns>
         /// <author>Antoine REITER</author>
         [HttpGet("GetImgBySearch")]
-        public ActionResult GetImgBySearch(string? name , int page)
+        public ActionResult GetImgBySearch(string ?name , int page)
         {
-
-            ActionResult result = BadRequest("No entry !");
-            
-            Img_TransformedDAO x = new Img_TransformedDAO();
-
-                //Getting the images from the bdd
-            if (name != NameOfLastchercher) 
+            try
             {
-            ListeSchearch = x.GetImagesBySearch(name,page);
-                NameOfLastchercher = name;
+                List<ImageAttributes> ListeSchearch = new List<ImageAttributes>();
+
+                ActionResult result = BadRequest("No entry !");
+                Img_TransformedDAO x = new Img_TransformedDAO();
+                //Getting the images from the bdd
+
+                if (name == null) //if the name is null
+                    name = "";
+
+                ListeSchearch = x.GetImagesBySearch(name, page);
 
                 //Adding the image as an array of bytes
                 foreach (ImageAttributes image in ListeSchearch)
                 {
                     image.Bytes = dAO_Patterns.GetFile(image.Name, "png");
                 }
-            }
-            List<ImageAttributes> Pagesearch = new List<ImageAttributes>();
+                result = new JsonResult(ListeSchearch);
 
-            // se calcule me sert a avoir un interval, peut certainement etre mieux fait
-            for (int i = (page+1)*6-6;i< (page+1)*6;i++)
-            {
-                if (ListeSchearch[i] != null)
-                Pagesearch.Add(ListeSchearch[i]);
+                //Transforming into a json
+
+                return result;
             }
-            //Transforming into a json
-            result = new JsonResult(Pagesearch);
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// This endpoint will return the number of pages
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        /// <authors>Antoine Reiter & Mattis Galoppin</authors>
+        [HttpGet("GetNumberPage")]
+        public ActionResult GetNumberPage(string ?word)
+        {
+            
+            ActionResult result = BadRequest("No entry !");
+            Img_TransformedDAO x = new Img_TransformedDAO();
+
+            if (word == null)
+                word = "";
+            result = new JsonResult(x.GetNumberPage(word)); //get number of pages
+          
+            
             return result;
-        }        
+        }
     }
 }
 
