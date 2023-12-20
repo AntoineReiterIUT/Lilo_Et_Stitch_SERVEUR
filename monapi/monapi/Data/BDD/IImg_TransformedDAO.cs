@@ -24,6 +24,21 @@ namespace API.Data.BDD
         /// <returns>6 images with attributies</returns>
         /// <authors>Mattis Galoppin</authors>
         public List<ImageAttributes> GetImagesTransformed(int page);
+
+        /// <summary>
+        /// get a list of images research with a word
+        /// </summary>
+        /// <param name="word">name of image to search</param>
+        /// <returns>a list of images that contain the word</returns>
+        public List<ImageAttributes> GetImagesBySearch(string word, int page);
+
+        /// <summary>
+        /// get the number of pages avaible
+        /// </summary>
+        /// <param name="word">the word to search</param>
+        /// <returns>the number of pages avaible</returns>
+        /// <authors>Mattis Galoppin</authors>
+        public int GetNumberPage(string word);
         #endregion
     }
 }
