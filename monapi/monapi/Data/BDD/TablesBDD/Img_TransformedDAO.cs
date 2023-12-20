@@ -1,4 +1,7 @@
-﻿using API.Data.BDD;
+﻿
+
+
+using API.Data.BDD;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -150,6 +153,36 @@ namespace monapi.Data.BDD
             }
             return ListImg;
             
+        }
+        /// <summary>
+        /// get the number of pages avaible
+        /// </summary>
+        /// <param name="word">the word to search</param>
+        /// <returns>the number of pages avaible</returns>
+        /// <authors>Mattis Galoppin</authors>
+        public int GetNumberPage(string word)
+        {
+            int nbPages = 0; //the number of result research
+            using (var context = new MyContext())
+            {
+                 
+                //there is no word to research
+                if (word == "")
+                { 
+                    nbPages = context.Img_Transformed
+                    .OrderBy(img => img.ID_IMG)
+                    .Count();
+                }
+                //give the number of pages with a word to search
+                else
+                {
+                    nbPages = context.Img_Transformed
+                   .Where(img => img.NOM_IMG.Contains(word))
+                   .OrderBy(img => img.ID_IMG)
+                   .Count();
+                }
+            }
+            return nbPages;
         }
         #endregion
     }
