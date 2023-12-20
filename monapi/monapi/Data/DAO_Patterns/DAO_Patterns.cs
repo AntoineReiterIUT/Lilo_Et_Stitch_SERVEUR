@@ -15,7 +15,7 @@ namespace API.Data.DAO_Patterns
         #endregion
 
 
-        #region opetations
+        #region operations
         public bool CheckIfPatternExist(string name)
         {          
             //Bool to return if it succeeded or not

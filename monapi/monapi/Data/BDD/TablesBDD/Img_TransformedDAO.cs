@@ -1,7 +1,4 @@
-﻿
-
-
-using API.Data.BDD;
+﻿using API.Data.BDD;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
