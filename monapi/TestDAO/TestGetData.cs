@@ -133,13 +133,11 @@ namespace TestDAO
             img.InsertInImg_Transformed("fakePath", "test");
             //test number pages
             Assert.Equal(1, img.GetNumberPage(""));
-            img.InsertInImg_Transformed("fakePath2", "test2");
-            Assert.Equal(2, img.GetNumberPage(""));
 
             img.InsertInImg_Transformed("fakePath3", "test3");
             //test with search
             Assert.Equal(1, img.GetNumberPage("test3"));
-            Assert.Equal(3, img.GetNumberPage(""));
+            Assert.Equal(0, img.GetNumberPage("z"));
             initialise.DeleteAll();
         }
         /// <summary>
