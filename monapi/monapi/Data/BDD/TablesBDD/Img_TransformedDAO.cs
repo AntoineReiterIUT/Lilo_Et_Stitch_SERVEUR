@@ -105,7 +105,7 @@ namespace monapi.Data.BDD
 
                 // Numéro de la première image à récupérer
                 var images = context.Img_Transformed 
-                    .OrderBy(img => img.ID_IMG)
+                    .OrderByDescending(img => img.ID_PARAMS)
                     .Skip(page * imagesPerPage) // we go to the good image
                     .Take(imagesPerPage); //we take the 6 images next
 
@@ -138,7 +138,7 @@ namespace monapi.Data.BDD
                 //try to recup in filteredImages all of images who contains the word
                 var filteredImages = context.Img_Transformed
                 .Where(img => img.NOM_IMG.Contains(word))
-                .OrderBy(img => img.ID_IMG)
+                .OrderByDescending(img => img.ID_PARAMS)
                 .Skip(page * imagesPerPage) // we go to the good image
                 .Take(imagesPerPage); //we take the 6 images next
 
