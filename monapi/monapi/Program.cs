@@ -1,3 +1,6 @@
+using API.Data.BDD;
+using monapi.Controllers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -28,5 +31,15 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//RESET FOR PROPER TESTING
+bool ResetOnStart = true;
+// CHANGE HERE IF NEEDED
+
+if (ResetOnStart)
+{
+    SendDataController sdc = new SendDataController();
+    sdc.clearAll();
+}
 
 app.Run();

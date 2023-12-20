@@ -98,6 +98,14 @@ namespace API.Controllers
             return result;
         }
 
+
+        /// <summary>
+        /// Will get the images of the given page
+        /// </summary>
+        /// <param name="name">Name of the patterns to look for </param>
+        /// <param name="page">Number of the page</param>
+        /// <returns></returns>
+        /// <author>Antoine REITER</author>
         [HttpGet("GetImgBySearch")]
         public ActionResult GetImgBySearch(string? name , int page)
         {
