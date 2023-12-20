@@ -1,7 +1,7 @@
 ﻿using monapi.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Data.BDD
+namespace API.Data.initialize
 {
     /// <summary>
     /// initialize the BDD

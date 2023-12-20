@@ -1,4 +1,5 @@
 ﻿using API.Data.BDD;
+using API.Data.initialize;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -98,7 +99,7 @@ namespace monapi.Data.BDD
             ImageAttributes imgA = new ImageAttributes(-1, "", "", -1);
             using (var context = new MyContext())
             {
-                int imagesPerPage = 6;
+                int imagesPerPage = Const.NbPatterns;
 
                 // Numéro de la première image à récupérer
                 var images = context.Img_Transformed 
@@ -131,7 +132,7 @@ namespace monapi.Data.BDD
 
             using (var context = new MyContext())
             {
-                int imagesPerPage = 6;
+                int imagesPerPage = Const.NbPatterns;
                 //try to recup in filteredImages all of images who contains the word
                 var filteredImages = context.Img_Transformed
                 .Where(img => img.NOM_IMG.Contains(word))
@@ -159,27 +160,27 @@ namespace monapi.Data.BDD
         /// <authors>Mattis Galoppin</authors>
         public int GetNumberPage(string word)
         {
-            int nbPages = 0; //the number of result research
+            int nbImages = 0; //the number of result research
             using (var context = new MyContext())
             {
-                 
+
                 //there is no word to research
                 if (word == "")
-                { 
-                    nbPages = context.Img_Transformed
+                {
+                    nbImages = context.Img_Transformed
                     .OrderBy(img => img.ID_IMG)
                     .Count();
                 }
                 //give the number of pages with a word to search
                 else
                 {
-                    nbPages = context.Img_Transformed
+                    nbImages = context.Img_Transformed
                    .Where(img => img.NOM_IMG.Contains(word))
                    .OrderBy(img => img.ID_IMG)
                    .Count();
                 }
             }
-            return nbPages;
+            return (int)Math.Ceiling(nbImages / (double)Const.NbPatterns); //return the good number of pages
         }
         #endregion
     }
