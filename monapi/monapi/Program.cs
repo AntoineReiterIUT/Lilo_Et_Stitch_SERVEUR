@@ -1,4 +1,5 @@
 using API.Data.BDD;
+using API.Data.initialize;
 using monapi.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,13 +34,14 @@ app.UseAuthorization();
 app.MapControllers();
 
 //RESET FOR PROPER TESTING
-bool ResetOnStart = true;
+bool ResetOnStartForTesting = true;
 // CHANGE HERE IF NEEDED
 
-if (ResetOnStart)
+if (ResetOnStartForTesting)
 {
     SendDataController sdc = new SendDataController();
     sdc.clearAll();
+    initialise.MoveTestingPatterns();
 }
 
 app.Run();
