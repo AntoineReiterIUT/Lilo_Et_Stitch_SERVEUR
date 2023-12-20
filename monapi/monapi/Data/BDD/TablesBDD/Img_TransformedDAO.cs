@@ -1,5 +1,7 @@
 ﻿using API.Data.BDD;
 using API.Data.initialize;
+
+
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -152,6 +154,7 @@ namespace monapi.Data.BDD
             return ListImg;
             
         }
+
         /// <summary>
         /// get the number of pages avaible
         /// </summary>
@@ -182,6 +185,7 @@ namespace monapi.Data.BDD
             }
             return (int)Math.Ceiling(nbImages / (double)Const.NbPatterns); //return the good number of pages
         }
+
         #endregion
     }
 }
