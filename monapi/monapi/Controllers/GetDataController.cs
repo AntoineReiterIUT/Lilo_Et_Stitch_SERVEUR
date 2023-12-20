@@ -103,16 +103,20 @@ namespace API.Controllers
         /// <returns> return bad request if name is null if not, return the Json of 6 ImageAttributes</returns>
         /// <author>Antoine REITER</author>
         [HttpGet("GetImgBySearch")]
-        public ActionResult GetImgBySearch(string? name , int page)
+        public ActionResult GetImgBySearch(string ?name , int page)
         {
-         List<ImageAttributes> ListeSchearch = new List<ImageAttributes>();
-
-            ActionResult result = BadRequest("No entry !");
-            Img_TransformedDAO x = new Img_TransformedDAO();
-                //Getting the images from the bdd
-            if (name != null) 
+            try
             {
-                ListeSchearch = x.GetImagesBySearch(name,page);
+                List<ImageAttributes> ListeSchearch = new List<ImageAttributes>();
+
+                ActionResult result = BadRequest("No entry !");
+                Img_TransformedDAO x = new Img_TransformedDAO();
+                //Getting the images from the bdd
+
+                if (name == null) //if the name is null
+                    name = "";
+
+                ListeSchearch = x.GetImagesBySearch(name, page);
 
                 //Adding the image as an array of bytes
                 foreach (ImageAttributes image in ListeSchearch)
@@ -120,10 +124,15 @@ namespace API.Controllers
                     image.Bytes = dAO_Patterns.GetFile(image.Name, "png");
                 }
                 result = new JsonResult(ListeSchearch);
-            }  
-            //Transforming into a json
-            
-            return result;
+
+                //Transforming into a json
+
+                return result;
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         /// <summary>
         /// This endpoint will return the number of pages
@@ -132,15 +141,16 @@ namespace API.Controllers
         /// <returns></returns>
         /// <authors>Antoine Reiter & Mattis Galoppin</authors>
         [HttpGet("GetNumberPage")]
-        public ActionResult GetNumberPage(string word)
+        public ActionResult GetNumberPage(string ?word)
         {
+            
             ActionResult result = BadRequest("No entry !");
             Img_TransformedDAO x = new Img_TransformedDAO();
 
-            if(word != null)
-            {
-                result = new JsonResult(x.GetNumberPage(word)); //get number of pages
-            }
+            if (word == null)
+                word = "";
+            result = new JsonResult(x.GetNumberPage(word)); //get number of pages
+          
             
             return result;
         }
