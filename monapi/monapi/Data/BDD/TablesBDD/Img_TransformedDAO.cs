@@ -135,12 +135,12 @@ namespace monapi.Data.BDD
             using (var context = new MyContext())
             {
                 int imagesPerPage = Const.NbPatterns;
-                //try to recup in filteredImages all of images who contains the word
+                //try to recup in filteredImages all of images who contains the letters
                 var filteredImages = context.Img_Transformed
-                .Where(img => img.NOM_IMG.Contains(word))
-                .OrderByDescending(img => img.ID_PARAMS)
-                .Skip(page * imagesPerPage) // we go to the good image
-                .Take(imagesPerPage); //we take the 6 images next
+                    .Where(img => img.NOM_IMG.ToLower().Contains(word.ToLower())) //We don't take into account the case
+                    .OrderBy(img => img.ID_IMG)
+                    .Skip(page * imagesPerPage) // we go to the good image
+                    .Take(imagesPerPage); //we take the 6 images next
 
                 if (filteredImages != null) //the row is not null
                 {
