@@ -37,11 +37,16 @@ app.MapControllers();
 bool ResetOnStartForTesting = true;
 // CHANGE HERE IF NEEDED
 
+if (!Directory.Exists(Const.patternsDirectory))
+    Directory.CreateDirectory(Const.patternsDirectory);
+
 if (ResetOnStartForTesting)
 {
     SendDataController sdc = new SendDataController();
     sdc.clearAll();
     initialise.MoveTestingPatterns();
 }
+
+
 
 app.Run();

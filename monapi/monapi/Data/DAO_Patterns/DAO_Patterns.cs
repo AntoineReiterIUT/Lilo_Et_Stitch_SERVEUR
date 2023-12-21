@@ -8,12 +8,6 @@ namespace API.Data.DAO_Patterns
     public class DAO_Patterns : IDAO_Patterns
     {
 
-        #region attributes
-        //The directory in which the patterns are saved
-        private string patternsDirectory = "Patterns";
-        #endregion
-
-
         #region operations
         public bool CheckIfPatternExist(string name)
         {          
@@ -22,7 +16,7 @@ namespace API.Data.DAO_Patterns
             try
             {
                 //building the whole path
-                string patternFolderPath = Path.Combine(patternsDirectory, name);
+                string patternFolderPath = Path.Combine(Const.patternsDirectory, name);
 
                 //checking if it exists
                 success = Directory.Exists(patternFolderPath);
@@ -43,7 +37,7 @@ namespace API.Data.DAO_Patterns
             try
             {
                 //building the whole path
-                string patternFolderPath = Path.Combine(patternsDirectory, name);
+                string patternFolderPath = Path.Combine(Const.patternsDirectory, name);
 
                 //Creating the directory
                 Directory.CreateDirectory(patternFolderPath);
@@ -71,7 +65,7 @@ namespace API.Data.DAO_Patterns
                 bool success = false;
                 if (name != null)
                 {
-                    DirectoryInfo di = new DirectoryInfo(patternsDirectory);
+                    DirectoryInfo di = new DirectoryInfo(Const.patternsDirectory);
                     DirectoryInfo[] subDirectories = di.GetDirectories();
                     foreach (DirectoryInfo subDirectory in subDirectories)
                     {
@@ -102,16 +96,23 @@ namespace API.Data.DAO_Patterns
 
         public void DeleteAllPatterns()
         {
-            DirectoryInfo di = new DirectoryInfo(patternsDirectory);
-            foreach (DirectoryInfo subDirectory in di.GetDirectories())
+            try
             {
-                foreach (FileInfo file in subDirectory.GetFiles())
+                initialise.DeleteAll();
+                DirectoryInfo di = new DirectoryInfo(Const.patternsDirectory);
+                foreach (DirectoryInfo subDirectory in di.GetDirectories())
                 {
-                    file.Delete();
+                    foreach (FileInfo file in subDirectory.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    subDirectory.Delete();
                 }
-                subDirectory.Delete();
             }
-            initialise.DeleteAll();
+            catch(DirectoryNotFoundException ex) 
+            {
+                Directory.CreateDirectory(Const.patternsDirectory);
+            }
         }
 
 
@@ -124,7 +125,7 @@ namespace API.Data.DAO_Patterns
                 if (file != null)
                 {
                     // Building the path & rebuilding the file, ex : /Paterns/NameOfThePattern/NameOfThePattern_PDF.pdf
-                    File.WriteAllBytesAsync(Path.Combine(Path.Combine(patternsDirectory, dirName), string.Format($"{dirName}_{type.ToUpper()}.{type}")), file);
+                    File.WriteAllBytesAsync(Path.Combine(Path.Combine(Const.patternsDirectory, dirName), string.Format($"{dirName}_{type.ToUpper()}.{type}")), file);
                     success = true;
                 }
                 else
@@ -146,7 +147,7 @@ namespace API.Data.DAO_Patterns
             try
             {
                 // Building the path, ex : /Paterns/NameOfThePattern/NameOfThePattern_PDF.pdf
-                string filePath = Path.Combine(Path.Combine(patternsDirectory, dirName), $"{dirName}_{type.ToUpper()}.{type}");
+                string filePath = Path.Combine(Path.Combine(Const.patternsDirectory, dirName), $"{dirName}_{type.ToUpper()}.{type}");
 
                 // Checking if it exists
                 if (File.Exists(filePath))
