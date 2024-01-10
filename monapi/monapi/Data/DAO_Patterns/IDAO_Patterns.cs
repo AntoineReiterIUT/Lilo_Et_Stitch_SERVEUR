@@ -8,10 +8,10 @@
 
 
         /// <summary>
-        /// Will check in the directory if a pattern with that name exists or not
+        /// Will check in the directory (API) if a pattern with that name exists or not
         /// </summary>
         /// <param name="name">Name of the potentially new pattern</param>
-        /// <returns>A boolean</returns>
+        /// <returns>If the pattern exists or not</returns>
         /// <author>Maxime LAFFAYE</author>
         public bool CheckIfPatternExist(string name);
 
@@ -28,15 +28,16 @@
         /// <summary>
         /// Adds the file (pdf, img or csv) to the directory
         /// </summary>
-        /// <param name="PDF">File, as an array of bytes</param>
+        /// <param name="file">File, as an array of bytes</param>
         /// <param name="dirName">Name of the dir in which the file should be rebuilt</param>
+        /// <param name="type">Type of the file to rebuild</param>
         /// <returns>Result of the rebuild</returns>
-        /// <author>Antoine REITER</author>
+        /// <author>Maxime LAFFAYE</author>
         public bool AddFile(byte[] file, string dirName, string type);
 
 
         /// <summary>
-        /// Will return the file, as an array of bytes
+        /// Used to get a file from a pattern
         /// </summary>
         /// <param name="dirName">Name of the pattern</param>
         /// <param name="type">Type of the file to look for</param>
@@ -44,16 +45,21 @@
         /// <author>Maxime LAFFAYE</author>
         public byte[] GetFile(string dirName, string type);
 
-        /// <summary>
-        /// will Delete a Patern in the API not in the DB
-        /// </summary>
-        /// <param name="name"> the name of the pattern to delete</param>
-        /// <returns> return a bool to indicate succes </returns>
-        public bool DeletePattern(string? name);
 
         /// <summary>
-        /// will delete every patern in the API and in the DB
+        /// Used to delete one pattern from the API
         /// </summary>
+        /// <param name="name"> the name of the pattern that must be deleted </param>
+        /// <returns>true if succes false is not</returns>
+        /// <exception cref="Exception">exception that may be triggered when deleting an empty pattern folder</exception>
+        /// <author>Antoine REITER</author>
+        public bool DeletePattern(string? name);
+
+
+        /// <summary>
+        /// Used to clear all pattern from the API
+        /// </summary>
+        /// <author>Antoine REITER</author>
         public void DeleteAllPatterns();
     }
 }

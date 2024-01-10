@@ -11,9 +11,8 @@ namespace monapi.Data.BDD
     /// </summary>
     public class ParamAttributes
     {
-        #region Attributes
+        #region attributes
 
-        // Private attributes
         private int id;
         private int step;
         private int nbColor;
@@ -22,12 +21,13 @@ namespace monapi.Data.BDD
 
         #endregion
 
-        #region Properties
+
+        #region properties
 
         /// <summary>
-        /// Gets or sets the Id.
+        /// Property : Gets or sets the id.
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         public int Id
         {
             get { return id; }
@@ -35,8 +35,9 @@ namespace monapi.Data.BDD
         }
 
         /// <summary>
-        /// Gets or sets the Step.
+        /// Property : Gets or sets the step.
         /// </summary>
+        /// <authors>Mattis GALOPPIN</authors>
         public int Step
         {
             get { return step; }
@@ -44,9 +45,9 @@ namespace monapi.Data.BDD
         }
 
         /// <summary>
-        /// Gets or sets the NbColor.
+        /// Property : Gets or sets the number of color.
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         public int NbColor
         {
             get { return nbColor; }
@@ -54,9 +55,9 @@ namespace monapi.Data.BDD
         }
 
         /// <summary>
-        /// Gets or sets the GridColor.
+        /// Property : Gets or sets the grid color.
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         public string GridColor
         {
             get { return gridColor; }
@@ -64,9 +65,9 @@ namespace monapi.Data.BDD
         }
 
         /// <summary>
-        /// Gets or sets the ColorPalette.
+        /// Property : Gets or sets the color palette.
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         public string ColorPalette
         {
             get { return palette; }
@@ -75,17 +76,18 @@ namespace monapi.Data.BDD
 
         #endregion
 
-        #region Constructor
+
+        #region operations
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ParamAttributes"/> class.
+        /// Initializes a new instance of the ParamAttributes class.
         /// </summary>
-        /// <param name="id">The Id value.</param>
-        /// <param name="step">The Step value.</param>
-        /// <param name="nbColor">The NbColor value.</param>
-        /// <param name="gridColor">The GridColor value.</param>
-        /// <param name="colorPalette">The ColorPalette value.</param>
-        /// <authors>Mattis Galoppin</authors>
+        /// <param name="id">The Id of the pattern</param>
+        /// <param name="step">The Step value</param>
+        /// <param name="nbColor">The number of colors</param>
+        /// <param name="gridColor">The color of the grid</param>
+        /// <param name="colorPalette">The color palette values</param>
+        /// <authors>Mattis GALOPPIN</authors>
         public ParamAttributes(int id, int step, int nbColor, string gridColor, string colorPalette)
         {
             //initialization
@@ -95,6 +97,7 @@ namespace monapi.Data.BDD
             this.gridColor = gridColor;
             palette = colorPalette;
         }
+
         #endregion
     }
 }

@@ -1,8 +1,9 @@
-﻿using API.Data.BDD;
-using API.Data.initialize;
+﻿using API.Data.initialize;
 
 
 using Microsoft.EntityFrameworkCore;
+using monapi.Data;
+using monapi.Data.BDD;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,21 +16,21 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace monapi.Data.BDD
+namespace API.Data.BDD.TablesBDD.Img_Transformed
 {
     /// <summary>
-    /// Table Img_Transformed in SQL
+    /// Representing the table Img_Transformed in SQL
     /// </summary>
-    /// <authors>Mattis Galoppin</authors>
+    /// <authors>Mattis GALOPPIN</authors>
     [Table("IMG_TRANSFORMED")]
     public class Img_TransformedDAO : IImg_TransformedDAO
     {
-        #region Properties
+        #region properties
 
         /// <summary>
         /// Primary key for Img_Transformed table
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         [Key]
         [Column("ID_IMG")]
         public int ID_IMG { get; set; }
@@ -37,27 +38,28 @@ namespace monapi.Data.BDD
         /// <summary>
         /// Represents the transformed image as a byte array
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         [Column("IMG")]
         public string IMG { get; set; }
 
         /// <summary>
         /// Represents the name of the image
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         [Column("NOM_IMG")]
         public string NOM_IMG { get; set; }
 
         /// <summary>
         /// Foreign key linking to the ID of the associated parameters
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         [Column("ID_PARAMS")]
         public int ID_PARAMS { get; set; }
 
         #endregion
 
-        #region Methods
+
+        #region operations
 
         /// <summary>
         /// Inserts values into the Img_Transformed table
@@ -65,47 +67,55 @@ namespace monapi.Data.BDD
         /// <param name="img">The transformed image</param>
         /// <param name="name">The name of the image</param>
         /// <returns>Success or failure message</returns>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         public string InsertInImg_Transformed(string img, string name)
         {
-            string function = "The image couldn't be inserted";
+            string result = "The image couldn't be inserted";
 
-
+            //Connection to the database
             using (var context = new MyContext())
             {
-                //creation insertion request
+                //Creation of the insertion request
                 FormattableString sql = $"INSERT INTO Img_Transformed (img, nom_img, id_params) VALUES ({img}, {name}, params_seq.CURRVAL)";
 
                 try
                 {
-                    // execute request
+                    //Execute the request
                     context.Database.ExecuteSqlInterpolated(sql);
-                    function = "Success";
+                    result = "Success";
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(function);
+                    Console.WriteLine(result);
                 }
-                return function;
+
+                return result;
             }
         }
+
+
         /// <summary>
         /// get 6 images of the page to display
         /// </summary>
         /// <param name="page">the number of the page to display</param>
-        /// <returns>6 images with attributes</returns>
-        /// <authors>Mattis Galoppin</authors>
+        /// <returns>6 images with their attributes</returns>
+        /// <authors>Mattis GALOPPIN</authors>
         public List<ImageAttributes> GetImagesTransformed(int page)
         {
+            //initialise the list
             List<ImageAttributes> ListImg = new List<ImageAttributes>();
+
+            //initialise the image
             ImageAttributes imgA = new ImageAttributes(-1, "", "", -1);
+
+            //Connection to the database
             using (var context = new MyContext())
             {
                 int imagesPerPage = Const.NbPatterns;
 
-                // Numéro de la première image à récupérer
-                var images = context.Img_Transformed 
-                    .OrderByDescending(img => img.ID_PARAMS)
+                //get the 6 images of the page according to the settings
+                var images = context.Img_Transformed
+                    .OrderByDescending(img => img.ID_PARAMS) //we order by the id of the parameters
                     .Skip(page * imagesPerPage) // we go to the good image
                     .Take(imagesPerPage); //we take the 6 images next
 
@@ -121,26 +131,36 @@ namespace monapi.Data.BDD
             }
             return ListImg;
         }
+
+
         /// <summary>
-        /// get a list of images research with a word
+        /// Get a list of images researched with a word
         /// </summary>
-        /// <param name="word">name of image to search</param>
+        /// <param name="word">name of image to search for</param>
+        /// <param name="page">the number of the page to get</param>
         /// <returns>a list of images that contain the word</returns>
+        /// <authors>Mattis GALOPPIN</authors>
         public List<ImageAttributes> GetImagesBySearch(string word, int page)
         {
             //initialise the list
             List<ImageAttributes> ListImg = new List<ImageAttributes>();
+
+            //initialise the image
             ImageAttributes imgA = new ImageAttributes(-1, "", "", -1);
 
+            //Connection to the database
             using (var context = new MyContext())
             {
+                //get the number of images per page
                 int imagesPerPage = Const.NbPatterns;
-                //try to recup in filteredImages all of images who contains the letters
+
+                //try to get in filteredImages all of images who contains the letters
                 var filteredImages = context.Img_Transformed
-                    .Where(img => img.NOM_IMG.ToLower().Contains(word.ToLower())) //We don't take into account the case
-                    .OrderBy(img => img.ID_IMG)
-                    .Skip(page * imagesPerPage) // we go to the good image
-                    .Take(imagesPerPage); //we take the 6 images next
+                    .Where(img => img.NOM_IMG.ToLower() //We don't take into account the case
+                    .Contains(word.ToLower())) //We select the images who contains the name
+                    .OrderBy(img => img.ID_IMG) //we order them by the id of the parameters
+                    .Skip(page * imagesPerPage) //We go to the good page
+                    .Take(imagesPerPage); //We take the 6 images next
 
                 if (filteredImages != null) //the row is not null
                 {
@@ -152,37 +172,42 @@ namespace monapi.Data.BDD
                 }
             }
             return ListImg;
-            
         }
 
+
         /// <summary>
-        /// get the number of pages avaible
+        /// Get the number of pages available
         /// </summary>
-        /// <param name="word">the word to search</param>
-        /// <returns>the number of pages avaible</returns>
-        /// <authors>Mattis Galoppin</authors>
+        /// <param name="word">the word used to search</param>
+        /// <returns>the number of pages available</returns>
+        /// <authors>Mattis GALOPPIN</authors>
         public int GetNumberPage(string word)
         {
-            int nbImages = 0; //the number of result research
+            //initialise the number of images
+            int nbImages = 0;
+
+            //Connection to the database
             using (var context = new MyContext())
             {
-
-                //there is no word to research
-                if (word == "")
+                if (word == "") //There is no word to research
                 {
+                    //get the number of images
                     nbImages = context.Img_Transformed
                     .OrderBy(img => img.ID_IMG)
                     .Count();
                 }
-                //give the number of pages with a word to search
-                else
+
+                else //give the number of pages according to the word searched
                 {
+                    //get the number of images
                     nbImages = context.Img_Transformed
-                   .Where(img => img.NOM_IMG.Contains(word))
+                   .Where(img => img.NOM_IMG.Contains(word)) //We select the images who contains the name
                    .OrderBy(img => img.ID_IMG)
                    .Count();
                 }
             }
+
+            //return the number of pages
             return (int)Math.Ceiling(nbImages / (double)Const.NbPatterns); //return the good number of pages
         }
 

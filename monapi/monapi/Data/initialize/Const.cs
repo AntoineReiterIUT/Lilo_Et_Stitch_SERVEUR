@@ -1,7 +1,7 @@
 ﻿namespace API.Data.initialize
 {
     /// <summary>
-    /// constants class
+    /// class containing the constants of the project
     /// </summary>
     public class Const
     {

@@ -10,24 +10,26 @@ namespace monapi.Data.BDD
     /// <summary>
     /// Represents the attributes of an image.
     /// </summary>
-    /// <authors>Mattis Galoppin</authors>
+    /// <authors>Mattis GALOPPIN</authors>
     public class ImageAttributes
     {
-        #region Attributes
+        #region attributes
+
         private int id;
         private int id_params; //foreign key of params table
         private string name;
         private string path;
         private Byte[] bytes;
+
         #endregion
 
 
-        #region Properties
+        #region properties
 
         /// <summary>
-        /// Gets or sets the identifier of the image.
+        /// Property : Gets or sets the identifier of the image.
         /// </summary>
-        ///<authors>Mattis Galoppin</authors>
+        ///<authors>Mattis GALOPPIN</authors>
         public int ID
         {
             get { return id; }
@@ -35,9 +37,9 @@ namespace monapi.Data.BDD
         }
 
         /// <summary>
-        /// Gets or sets the name of the image.
+        /// Property : Gets or sets the name of the image.
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         public string Name
         {
             get { return name; }
@@ -45,18 +47,18 @@ namespace monapi.Data.BDD
         }
 
         /// <summary>
-        /// Gets or sets the path to the image.
+        /// Property : Gets or sets the path to the image.
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         public string Path
         {
             get { return path; }
             set { path = value; }
         }
         /// <summary>
-        /// Gets or sets the identifier of the params.
+        /// Property : Gets or sets the identifier of the params.
         /// </summary>
-        ///<authors>Mattis Galoppin</authors>
+        ///<authors>Mattis GALOPPIN</authors>
         public int ID_params
         {
             get { return id_params; }
@@ -64,7 +66,7 @@ namespace monapi.Data.BDD
         }
 
         /// <summary>
-        /// Returns the image as an array of bytes
+        /// Property : Gets or sets the identifier of the params.
         /// </summary>
         /// <author>Maxime LAFFAYE</author>
         public byte[] Bytes
@@ -76,14 +78,16 @@ namespace monapi.Data.BDD
         #endregion
 
 
-        #region Constructors
+        #region operations
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="ImageAttributes"/> class with the specified elements.
+        /// Initializes a new instance of the ImageAttributes class with the specified elements.
         /// </summary>
-        /// <param name="id">The identifier of the image.</param>
-        /// <param name="name">The name of the image.</param>
-        /// <param name="path">The path to the image.</param>
-        /// <authors>Mattis Galoppin</authors>
+        /// <param name="id">The identifier of the imag.</param>
+        /// <param name="name">The name of the image</param>
+        /// <param name="path">The path to the image</param>
+        /// <param name="idParams">The identifier for the settings</param>
+        /// <authors>Mattis GALOPPIN</authors>
         public ImageAttributes(int id, string name, string path, int idParams)
         {
             //initialization
@@ -91,7 +95,6 @@ namespace monapi.Data.BDD
             this.name = name;
             this.path = path;
             id_params = idParams;
-
         }
 
         #endregion
