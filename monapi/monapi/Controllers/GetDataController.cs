@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using API.Data.BDD;
 using API.Data.DAO_Patterns;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using monapi.Data;
@@ -8,29 +7,36 @@ using System.Drawing;
 using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using API.Data.BDD.TablesBDD.Img_Transformed;
+using API.Data.BDD.TablesBDD.PARAMS;
+using API.Data.BDD.TablesBDD.PDF;
 
 namespace API.Controllers
 {
 
     /// <summary>
-    /// This class will be the endpoint handler
+    /// This class contains the methods/endpoints that will be called whenever a client wants to get data from the API such as a list of patterns, settings, and so on.
     /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class GetDataController : ControllerBase
     {
         #region attributes
+
         private IDAO_Patterns dAO_Patterns = new DAO_Patterns();
         private IParamsDAO paramsDAO = new ParamsDAO();
         private IImg_TransformedDAO imageTransformedBDD = new Img_TransformedDAO();
         private IPdfDAO pdfDao = new PdfDAO();
+
         #endregion
 
+
+        #region operations
 
         /// <summary>
         /// This endpoint will return a list of images, using the given page number
         /// </summary>
-        /// <param name="page"></param>
+        /// <param name="page">The page number of the images to get</param>
         /// <returns>List of images, as a json file</returns>
         /// <author>Maxime LAFFAYE</author>
         [HttpGet("GetImages")]
@@ -84,17 +90,23 @@ namespace API.Controllers
         /// </summary>
         /// <param name="name"> the name of the project </param>
         /// <returns> the byte array on Json of the PDF </returns>
+        /// <author>Antoine REITER</author>
         [HttpGet("GetPDF")]
         public ActionResult GetPDF(string? name)
         {
             ActionResult result = BadRequest("No entry !");
             if (name != null)
             {
+                //Getting the PDF from the bdd
                 byte[] test= dAO_Patterns.GetFile(name, "pdf");
+
+                //Transforming into a json
                 result = new JsonResult(test);
             }
             return result;
         }
+
+
         /// <summary>
         /// This endpoint will return the 6 images with the same name as the researched one
         /// </summary>
@@ -107,25 +119,25 @@ namespace API.Controllers
         {
             try
             {
-                List<ImageAttributes> ListeSchearch = new List<ImageAttributes>();
+                List<ImageAttributes> ListSearch = new List<ImageAttributes>();
 
                 ActionResult result = BadRequest("No entry !");
                 Img_TransformedDAO x = new Img_TransformedDAO();
-                //Getting the images from the bdd
 
                 if (name == null) //if the name is null
-                    name = "";
+                    name = ""; //we put an empty string
 
-                ListeSchearch = x.GetImagesBySearch(name, page);
+                //Getting the images from the bdd
+                ListSearch = x.GetImagesBySearch(name, page);
 
                 //Adding the image as an array of bytes
-                foreach (ImageAttributes image in ListeSchearch)
+                foreach (ImageAttributes image in ListSearch)
                 {
                     image.Bytes = dAO_Patterns.GetFile(image.Name, "png");
                 }
-                result = new JsonResult(ListeSchearch);
 
                 //Transforming into a json
+                result = new JsonResult(ListSearch);
 
                 return result;
             }
@@ -134,26 +146,30 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
         /// <summary>
-        /// This endpoint will return the number of pages
+        /// This endpoint will return the number of pages by search or not
         /// </summary>
-        /// <param name="word"></param>
-        /// <returns></returns>
-        /// <authors>Antoine Reiter & Mattis Galoppin</authors>
+        /// <param name="word">The word used to search</param>
+        /// <returns>The number of pages</returns>
+        /// <authors>Antoine REITER - Mattis GALOPPIN</authors>
         [HttpGet("GetNumberPage")]
         public ActionResult GetNumberPage(string ?word)
         {
-            
             ActionResult result = BadRequest("No entry !");
             Img_TransformedDAO x = new Img_TransformedDAO();
 
-            if (word == null)
-                word = "";
-            result = new JsonResult(x.GetNumberPage(word)); //get number of pages
+            if (word == null) //if the name is null
+                word = ""; //we put an empty string
+
+            //Transforming into a json the number of pages
+            result = new JsonResult(x.GetNumberPage(word)); 
           
-            
             return result;
         }
+
+        #endregion
     }
 }
 
