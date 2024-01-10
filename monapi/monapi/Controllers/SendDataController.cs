@@ -42,35 +42,22 @@ namespace monapi.Controllers
         /// <returns>Result of the request</returns>
         /// <author>Antoine REITER - Maxime LAFFAYE</author>
         [HttpGet("SendParameters")]
-        public ActionResult ReceiveParameters(string ?name, int ?step, int ?colors, string ?gridColor)
+        public ActionResult ReceiveParameters(string? name, int? step, int? maxColors, string? gridColor)
         {
-            //Constant for operation status
-            const string OperationSuccess = "Success";
+            ActionResult result = BadRequest("No entry !");
 
-            ActionResult result = BadRequest("missing entry!");
-
-            //If the parameters are not null, we can insert them in the database
-            if (name != null & step != null & colors != null & gridColor != null)
+            if (name != null && step != null && maxColors != null && gridColor != null)
             {
                 //Creating the directory
                 dAO_Patterns.CreatePattern(name);
+                
+                //Inserting into the BDD
+                string successBDD = paramsDAO.InsertInParams((int)step, (int)maxColors, gridColor, string.Format($"{name}_CSV.csv"));
+                successBDD += imageTransformedBDD.InsertInImg_Transformed(string.Format($"{name}_IMG.png"), name);
+                successBDD += pdfDao.InsertInPdf(string.Format($"{name}_PDF.pdf"));
 
-                //Inserting the parameters in the database
-                string paramsInsertResult = paramsDAO.InsertInParams((int)step, (int)colors, gridColor, string.Format($"{name}_CSV.csv"));
-                string imageInsertResult = imageTransformedBDD.InsertInImg_Transformed(string.Format($"{name}_IMG.png"), name); 
-                string pdfInsertResult = pdfDao.InsertInPdf(string.Format($"{name}_PDF.pdf"));
-
-                //Check if all operations succeeded
-                if (paramsInsertResult == OperationSuccess &&
-                    imageInsertResult == OperationSuccess &&
-                    pdfInsertResult == OperationSuccess)
-                {
-                    result = Ok("Success!");
-                }
-                else
-                {
-                    result = BadRequest("An error occurred during data insertion.");
-                }
+                //Checking if it succeeded to return success or not
+                if (successBDD == "SuccessSuccessSuccess") result = Ok("Success!");
             }
             return result;
         }
