@@ -1,20 +1,22 @@
+using API.Data.BDD.TablesBDD.Img_Transformed;
+using API.Data.BDD.TablesBDD.PARAMS;
+using API.Data.BDD.TablesBDD.PDF;
 using API.Data.initialize;
 using Microsoft.EntityFrameworkCore;
 using monapi.Data;
-using monapi.Data.BDD;
 using System.Xml.Linq;
 
 namespace TestDAO
 {
     /// <summary>
-    /// test insertion data class
+    /// Tests the insertion data class
     /// </summary>
-    public class InsetDATA
+    public class InsertDATA
     {
         /// <summary>
         /// test insert in Params table
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         [Fact]
         public void InsertInParams()
         {
@@ -27,10 +29,12 @@ namespace TestDAO
             //delete the row
             initialise.DeleteAll();
         }
+
+
         /// <summary>
         /// test insert in Image table 
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         [Fact]
         public void InsertInImg()
         {
@@ -49,10 +53,12 @@ namespace TestDAO
             initialise.DeleteAll();
 
         }
+
+
         /// <summary>
         /// test insert in PDF table 
         /// </summary>
-        /// <authors>Mattis Galoppin</authors>
+        /// <authors>Mattis GALOPPIN</authors>
         [Fact]
         public void InsertInPdf()
         {
